@@ -5,26 +5,17 @@ import com.google.common.base.*;
 import java.io.*;
 
 public class Badges {
-	private final Repository respository;
+	private final Repository repository;
 
-	public Badges(Repository respository) {
-		this.respository = respository;
+	public Badges(Repository repository) {
+		this.repository = repository;
 	}
 
 	public String get(Badge badge) {
 		try {
-			switch (badge) {
-				case FIRST_COMMITER:
-					return respository.firstCommiter();
-				case MOST_ACTIVE_COMMITER:
-					return respository.mostActiveCommiter();
-				case LEAST_ACTIVE_COMMITER:
-					return respository.leastActiveCommiter();
-			}
+			return badge.fromRepository(repository);
 		} catch (IOException e) {
 			throw Throwables.propagate(e);
 		}
-
-		throw new IllegalArgumentException("Unknown badge");
 	}
 }
