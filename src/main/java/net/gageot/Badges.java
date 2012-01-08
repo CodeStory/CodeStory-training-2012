@@ -11,11 +11,20 @@ public class Badges {
 		this.respository = respository;
 	}
 
-	public String getWinner(Badge firstCommiter) {
+	public String get(Badge badge) {
 		try {
-			return respository.firstCommiter();
+			switch (badge) {
+				case FIRST_COMMITER:
+					return respository.firstCommiter();
+				case MOST_ACTIVE_COMMITER:
+					return respository.mostActiveCommiter();
+				case LEAST_ACTIVE_COMMITER:
+					return respository.leastActiveCommiter();
+			}
 		} catch (IOException e) {
 			throw Throwables.propagate(e);
 		}
+
+		throw new IllegalArgumentException("Unknown badge");
 	}
 }
