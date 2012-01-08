@@ -1,5 +1,6 @@
 package net.gageot;
 
+import com.google.common.base.*;
 import com.google.common.collect.*;
 import org.eclipse.egit.github.core.*;
 import org.eclipse.egit.github.core.service.*;
@@ -21,19 +22,19 @@ public class Repository {
 		this.user = user;
 	}
 
-	public String firstCommiter() throws IOException {
+	public String firstCommiter() {
 		return commits().get(0).getAuthor().getLogin();
 	}
 
-	public String mostActiveCommiter() throws IOException {
+	public String mostActiveCommiter() {
 		return commiterWithCommits(MOST);
 	}
 
-	public String leastActiveCommiter() throws IOException {
+	public String leastActiveCommiter() {
 		return commiterWithCommits(LEAST);
 	}
 
-	public String commiterWithCommits(Comparator<Long> ordering) throws IOException {
+	public String commiterWithCommits(Comparator<Long> ordering) {
 		String commiter = user;
 		Long count = null;
 
@@ -47,11 +48,7 @@ public class Repository {
 		return commiter;
 	}
 
-	private List<RepositoryCommit> commits() throws IOException {
-		return new CommitService().getCommits(new RepositoryId(user, project));
-	}
-
-	private Map<String, Long> commitCountPerUser() throws IOException {
+	private Map<String, Long> commitCountPerUser() {
 		Map<String, Long> countPerUser = Maps.newHashMap();
 
 		for (RepositoryCommit commit : commits()) {
@@ -66,5 +63,13 @@ public class Repository {
 		}
 
 		return countPerUser;
+	}
+
+	private List<RepositoryCommit> commits() {
+		try {
+			return new CommitService().getCommits(new RepositoryId(user, project));
+		} catch (IOException e) {
+			throw Throwables.propagate(e);
+		}
 	}
 }

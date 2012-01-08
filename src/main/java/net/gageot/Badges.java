@@ -1,9 +1,5 @@
 package net.gageot;
 
-import com.google.common.base.*;
-
-import java.io.*;
-
 public class Badges {
 	private final Repository repository;
 
@@ -12,10 +8,6 @@ public class Badges {
 	}
 
 	public String get(Badge badge) {
-		try {
-			return badge.fromRepository(repository);
-		} catch (IOException e) {
-			throw Throwables.propagate(e);
-		}
+		return badge.fromRepository(repository);
 	}
 }

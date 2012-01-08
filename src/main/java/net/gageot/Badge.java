@@ -1,23 +1,21 @@
 package net.gageot;
 
-import java.io.*;
-
 public enum Badge {
 	MOST_ACTIVE_COMMITER {
-		public String fromRepository(Repository repository) throws IOException {
+		public String fromRepository(Repository repository) {
 			return repository.mostActiveCommiter();
 		}
 	},
 	FIRST_COMMITER {
-		public String fromRepository(Repository repository) throws IOException {
+		public String fromRepository(Repository repository) {
 			return repository.firstCommiter();
 		}
 	},
 	LEAST_ACTIVE_COMMITER {
-		public String fromRepository(Repository repository) throws IOException {
+		public String fromRepository(Repository repository) {
 			return repository.leastActiveCommiter();
 		}
 	};
 
-	public abstract String fromRepository(Repository repository) throws IOException;
+	abstract String fromRepository(Repository repository);
 }
