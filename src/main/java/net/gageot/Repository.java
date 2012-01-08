@@ -10,6 +10,9 @@ import java.util.*;
 import static com.google.common.base.Objects.*;
 
 public class Repository {
+	private static Comparator<Long> MOST = Ordering.natural().nullsFirst();
+	private static Comparator<Long> LEAST = Ordering.natural().reverse().nullsFirst();
+
 	private final String user;
 	private final String project;
 
@@ -23,31 +26,25 @@ public class Repository {
 	}
 
 	public String mostActiveCommiter() throws IOException {
-		String mostActive = user;
-		long count = 0L;
-
-		for (Map.Entry<String, Long> entry : commitCountPerUser().entrySet()) {
-			if (entry.getValue() > count) {
-				count = entry.getValue();
-				mostActive = entry.getKey();
-			}
-		}
-
-		return mostActive;
+		return commiterWithCommits(MOST);
 	}
 
 	public String leastActiveCommiter() throws IOException {
-		String leastActive = user;
-		long count = Long.MAX_VALUE;
+		return commiterWithCommits(LEAST);
+	}
+
+	public String commiterWithCommits(Comparator<Long> ordering) throws IOException {
+		String commiter = user;
+		Long count = null;
 
 		for (Map.Entry<String, Long> entry : commitCountPerUser().entrySet()) {
-			if (entry.getValue() < count) {
+			if (ordering.compare(entry.getValue(), count) > 0) {
+				commiter = entry.getKey();
 				count = entry.getValue();
-				leastActive = entry.getKey();
 			}
 		}
 
-		return leastActive;
+		return commiter;
 	}
 
 	private List<RepositoryCommit> commits() throws IOException {
