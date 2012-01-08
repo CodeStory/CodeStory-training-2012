@@ -11,12 +11,12 @@ public class RepositoryTest {
 
 	@Before
 	public void setUp() {
-		repository = new Repository();
+		repository = new Repository("dgageot", "infinitest");
 	}
 
 	@Test
 	public void can_get_first_commiter() throws IOException {
-		String commiter = repository.firstCommiter("dgageot", "infinitest");
+		String commiter = repository.firstCommiter();
 
 		assertThat(commiter).isEqualTo("dgageot");
 	}

@@ -4,18 +4,17 @@ import org.eclipse.egit.github.core.*;
 import org.eclipse.egit.github.core.service.*;
 
 import java.io.*;
-import java.util.*;
 
 public class Repository {
-	public String firstCommiter(String user, String project) throws IOException {
-		List<RepositoryCommit> commits = commits(user, project);
+	private final String user;
+	private final String project;
 
-		RepositoryCommit firstCommit = commits.get(0);
-
-		return firstCommit.getAuthor().getLogin();
+	public Repository(String user, String project) {
+		this.project = project;
+		this.user = user;
 	}
 
-	private List<RepositoryCommit> commits(String user, String project) throws IOException {
-		return new CommitService().getCommits(new RepositoryId(user, project));
+	public String firstCommiter() throws IOException {
+		return new CommitService().getCommits(new RepositoryId(user, project)).get(0).getAuthor().getLogin();
 	}
 }
