@@ -1,7 +1,7 @@
 package net.gageot;
 
 import com.google.common.collect.*;
-import org.eclipse.egit.github.core.*;
+import org.eclipse.egit.github.core.Repository;
 import org.eclipse.egit.github.core.service.*;
 
 import java.io.*;
