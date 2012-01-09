@@ -1,4 +1,4 @@
-package net.gageot;
+package net.gageot.codestory;
 
 public class Badges {
 	private final Repository repository;

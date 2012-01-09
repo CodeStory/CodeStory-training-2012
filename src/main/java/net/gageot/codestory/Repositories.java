@@ -1,4 +1,4 @@
-package net.gageot;
+package net.gageot.codestory;
 
 import com.google.common.collect.*;
 import org.eclipse.egit.github.core.Repository;

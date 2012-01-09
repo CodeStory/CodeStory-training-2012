@@ -1,4 +1,4 @@
-package net.gageot;
+package net.gageot.codestory;
 
 import com.google.common.base.*;
 import com.google.common.collect.*;

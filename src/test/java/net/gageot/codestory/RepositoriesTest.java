@@ -1,5 +1,6 @@
-package net.gageot;
+package net.gageot.codestory;
 
+import net.gageot.codestory.*;
 import org.eclipse.egit.github.core.client.*;
 import org.junit.*;
 

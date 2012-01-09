@@ -1,4 +1,4 @@
-package net.gageot;
+package net.gageot.codestory;
 
 public enum Badge {
 	MOST_ACTIVE_COMMITER {
