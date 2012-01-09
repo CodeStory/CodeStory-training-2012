@@ -3,6 +3,7 @@ package net.gageot.codestory;
 import com.google.common.base.*;
 import com.google.common.collect.*;
 import net.gageot.util.Count;
+import net.gageot.util.*;
 import org.eclipse.egit.github.core.*;
 import org.eclipse.egit.github.core.service.*;
 
@@ -10,8 +11,8 @@ import java.io.*;
 import java.util.*;
 
 public class Repository {
-	private static Comparator<Long> MOST = Ordering.natural().nullsFirst();
-	private static Comparator<Long> LEAST = Ordering.natural().reverse().nullsFirst();
+	private static Ordering<Long> MOST = Ordering.natural().nullsFirst();
+	private static Ordering<Long> LEAST = Ordering.natural().reverse().nullsFirst();
 
 	private final String user;
 	private final String project;
@@ -33,18 +34,8 @@ public class Repository {
 		return commiterWithCommits(LEAST);
 	}
 
-	public String commiterWithCommits(Comparator<Long> ordering) {
-		String commiter = user;
-		Long count = null;
-
-		for (Map.Entry<String, Long> entry : commitCountPerUser().asMap().entrySet()) {
-			if (ordering.compare(entry.getValue(), count) > 0) {
-				commiter = entry.getKey();
-				count = entry.getValue();
-			}
-		}
-
-		return commiter;
+	public String commiterWithCommits(Ordering<Long> ordering) {
+		return ordering.onResultOf(MoreFunctions.<Long>entryToValue()).max(commitCountPerUser().asMap().entrySet()).getKey();
 	}
 
 	private Count<String> commitCountPerUser() {
