@@ -1,9 +1,9 @@
 package net.gageot.util;
 
+import com.google.common.collect.*;
 import org.junit.*;
 
 import static org.fest.assertions.Assertions.*;
-import static org.fest.assertions.MapAssert.*;
 
 public class CountTest {
 	private Count<String> count;
@@ -48,15 +48,15 @@ public class CountTest {
 		count.add("KEY1", 10);
 		count.add("KEY2", 10);
 
-		assertThat(count.getKeys()).containsOnly("KEY1", "KEY2");
+		assertThat(count.keySet()).containsOnly("KEY1", "KEY2");
 	}
 
 	@Test
-	public void can_get_as_map() {
+	public void can_get_as_entries() {
 		count.add("KEY1", 10);
 		count.add("KEY2", 20);
 
-		assertThat(count.asMap()).includes(entry("KEY1", 10L), entry("KEY2", 20L));
+		assertThat(count.entrySet()).isEqualTo(ImmutableMap.of("KEY1", 10L, "KEY2", 20L).entrySet());
 	}
 
 	@Test

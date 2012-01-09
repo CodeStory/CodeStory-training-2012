@@ -35,7 +35,7 @@ public class Repository {
 	}
 
 	public String commiterWithCommits(Ordering<Long> ordering) {
-		return ordering.onResultOf(MoreFunctions.<Long>entryToValue()).max(commitCountPerUser().asMap().entrySet()).getKey();
+		return ordering.onResultOf(MoreFunctions.<Long>entryToValue()).max(commitCountPerUser().entrySet()).getKey();
 	}
 
 	private Count<String> commitCountPerUser() {

@@ -37,8 +37,12 @@ public class Count<T> {
 		count.remove(object);
 	}
 
-	public Set<T> getKeys() {
-		return count.keySet();
+	public Set<T> keySet() {
+		return Collections.unmodifiableSet(count.keySet());
+	}
+
+	public Set<Map.Entry<T, Long>> entrySet() {
+		return Collections.unmodifiableSet(count.entrySet());
 	}
 
 	public int size() {
@@ -47,9 +51,5 @@ public class Count<T> {
 
 	public void reset() {
 		count.clear();
-	}
-
-	public Map<T, Long> asMap() {
-		return Collections.unmodifiableMap(count);
 	}
 }
