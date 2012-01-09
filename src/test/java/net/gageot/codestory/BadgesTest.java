@@ -1,6 +1,5 @@
 package net.gageot.codestory;
 
-import net.gageot.codestory.*;
 import org.junit.*;
 import org.junit.runner.*;
 import org.mockito.*;

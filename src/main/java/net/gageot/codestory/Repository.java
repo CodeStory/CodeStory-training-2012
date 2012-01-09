@@ -2,13 +2,12 @@ package net.gageot.codestory;
 
 import com.google.common.base.*;
 import com.google.common.collect.*;
+import net.gageot.util.Count;
 import org.eclipse.egit.github.core.*;
 import org.eclipse.egit.github.core.service.*;
 
 import java.io.*;
 import java.util.*;
-
-import static com.google.common.base.Objects.*;
 
 public class Repository {
 	private static Comparator<Long> MOST = Ordering.natural().nullsFirst();
@@ -38,7 +37,7 @@ public class Repository {
 		String commiter = user;
 		Long count = null;
 
-		for (Map.Entry<String, Long> entry : commitCountPerUser().entrySet()) {
+		for (Map.Entry<String, Long> entry : commitCountPerUser().asMap().entrySet()) {
 			if (ordering.compare(entry.getValue(), count) > 0) {
 				commiter = entry.getKey();
 				count = entry.getValue();
@@ -48,18 +47,14 @@ public class Repository {
 		return commiter;
 	}
 
-	private Map<String, Long> commitCountPerUser() {
-		Map<String, Long> countPerUser = Maps.newHashMap();
+	private Count<String> commitCountPerUser() {
+		Count<String> countPerUser = Count.create();
 
 		for (RepositoryCommit commit : commits()) {
 			User author = commit.getAuthor();
-			if (null == author) {
-				continue;
+			if (null != author) {
+				countPerUser.add(author.getLogin(), 1L);
 			}
-
-			String login = author.getLogin();
-			long count = firstNonNull(countPerUser.get(login), 1L);
-			countPerUser.put(author.getLogin(), count + 1);
 		}
 
 		return countPerUser;
