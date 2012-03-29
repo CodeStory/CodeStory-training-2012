@@ -5,6 +5,7 @@ import com.google.common.collect.*;
 import net.gageot.util.Count;
 import net.gageot.util.*;
 import org.eclipse.egit.github.core.*;
+import org.eclipse.egit.github.core.client.*;
 import org.eclipse.egit.github.core.service.*;
 
 import java.io.*;
@@ -53,7 +54,7 @@ public class Repository {
 
 	private List<RepositoryCommit> commits() {
 		try {
-			return new CommitService().getCommits(new RepositoryId(user, project));
+			return new CommitService(new GitHubClient("github", -1, "http")).getCommits(new RepositoryId(user, project));
 		} catch (IOException e) {
 			throw Throwables.propagate(e);
 		}

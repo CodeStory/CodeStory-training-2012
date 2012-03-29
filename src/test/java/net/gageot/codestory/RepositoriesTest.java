@@ -1,6 +1,5 @@
 package net.gageot.codestory;
 
-import net.gageot.codestory.*;
 import org.eclipse.egit.github.core.client.*;
 import org.junit.*;
 
@@ -19,9 +18,9 @@ public class RepositoriesTest {
 
 	@Test
 	public void can_list_repositories_of_well_known_user() throws IOException {
-		List<String> names = repositories.list("mxcl");
+		List<String> names = repositories.list("jlm");
 
-		assertThat(names).contains("homebrew");
+		assertThat(names).contains("NodeGravatar");
 	}
 
 	@Test(expected = RequestException.class)
