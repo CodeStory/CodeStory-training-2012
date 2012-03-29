@@ -15,6 +15,7 @@ function exit_ok {
 	alert_user "${1}"; exit 0
 }
 
+LOCATION=`pwd`
 BRANCH=$(git branch --no-color | awk '$1=="*" {print $2}')
 ORIGIN=$(git remote -v | awk '$1=="origin" && $3=="(push)" {print $2}')
 
@@ -48,5 +49,5 @@ if [ $? -ne 0 ]; then
 	exit_ko "Unable to push"
 fi
 
-cd .. && git fetch
+cd ${LOCATION} && git fetch
 exit_ok "Yet another successful push!"
