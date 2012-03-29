@@ -31,4 +31,9 @@ public class CodeStoryTest {
 	public void should_get_sha1_from_commit() {
 		assertThat(commits).onProperty("sha1").containsSequence("710ff33fed6d4b295f9e792bcf722c622a51d2f0", "590db31030e4b9937bb2c6d74f481c3c551bee9e");
 	}
+
+	@Test
+	public void should_get_date_from_commit() {
+		assertThat(commits).onProperty("date").containsOnly("29/03/2012");
+	}
 }
