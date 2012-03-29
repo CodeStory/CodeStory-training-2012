@@ -1,14 +1,15 @@
-import com.google.common.io.*;
-import org.fest.assertions.*;
+import org.apache.commons.exec.*;
 import org.junit.*;
 
-import java.io.*;
-import java.nio.charset.*;
+import static junit.framework.Assert.*;
 
 public class IndexTest {
 	@Test
 	public void should_display_project_name() throws Exception {
-		String indexContent = Resources.toString(new File("src/main/resources/index.html").toURI().toURL(), Charset.forName("UTF-8"));
-		Assertions.assertThat(indexContent).contains("id='project-name'".replace("'", "\""));
+		DefaultExecutor executor = new DefaultExecutor();
+		int result = executor.execute(CommandLine.parse("/usr/local/bin/node test.js"));
+		if (result != 0) {
+			fail("ERROR");
+		}
 	}
 }
