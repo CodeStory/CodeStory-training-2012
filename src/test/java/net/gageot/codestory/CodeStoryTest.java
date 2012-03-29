@@ -1,5 +1,6 @@
 package net.gageot.codestory;
 
+import org.fest.assertions.*;
 import org.junit.*;
 
 import java.util.*;
@@ -24,7 +25,16 @@ public class CodeStoryTest {
 
 	@Test
 	public void should_get_image_url_of_a_repository_commits() {
-		assertThat(commits).onProperty("imageUrl").containsExactly(JL_GRAVATAR, JL_GRAVATAR, DAVID_GRAVATAR, DAVID_GRAVATAR, DAVID_GRAVATAR, DAVID_GRAVATAR, JL_GRAVATAR, JL_GRAVATAR, JL_GRAVATAR, JL_GRAVATAR);
+		Assertions.assertThat(commits.get(0).getImageUrl()).startsWith(JL_GRAVATAR);
+		Assertions.assertThat(commits.get(1).getImageUrl()).startsWith(JL_GRAVATAR);
+		Assertions.assertThat(commits.get(2).getImageUrl()).startsWith(DAVID_GRAVATAR);
+		Assertions.assertThat(commits.get(3).getImageUrl()).startsWith(DAVID_GRAVATAR);
+		Assertions.assertThat(commits.get(4).getImageUrl()).startsWith(DAVID_GRAVATAR);
+		Assertions.assertThat(commits.get(5).getImageUrl()).startsWith(DAVID_GRAVATAR);
+		Assertions.assertThat(commits.get(6).getImageUrl()).startsWith(JL_GRAVATAR);
+		Assertions.assertThat(commits.get(7).getImageUrl()).startsWith(JL_GRAVATAR);
+		Assertions.assertThat(commits.get(8).getImageUrl()).startsWith(JL_GRAVATAR);
+		Assertions.assertThat(commits.get(9).getImageUrl()).startsWith(JL_GRAVATAR);
 	}
 
 	@Test

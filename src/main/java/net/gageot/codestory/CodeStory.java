@@ -1,29 +1,34 @@
 package net.gageot.codestory;
 
+import com.google.common.base.*;
+import org.eclipse.egit.github.core.*;
+import org.eclipse.egit.github.core.client.*;
+import org.eclipse.egit.github.core.service.*;
+
+import java.io.*;
 import java.util.*;
 
 import static com.google.common.collect.Lists.*;
 
 public class CodeStory {
 	public List<Commit> getCommitsFrom(String nodeGravatar) {
-		return newArrayList( //
-				jlmCommit("710ff33fed6d4b295f9e792bcf722c622a51d2f0"), //
-				jlmCommit("590db31030e4b9937bb2c6d74f481c3c551bee9e"), //
-				dgageotCommit(), //
-				dgageotCommit(), //
-				dgageotCommit(), //
-				dgageotCommit(), //
-				jlmCommit("710ff33fed6d4b295f9e792bcf722c622a51d2f0"), //
-				jlmCommit("710ff33fed6d4b295f9e792bcf722c622a51d2f0"), //
-				jlmCommit("710ff33fed6d4b295f9e792bcf722c622a51d2f0"), //
-				jlmCommit("710ff33fed6d4b295f9e792bcf722c622a51d2f0"));
+		List<RepositoryCommit> commits = getCommitsFromGithub();
+		return transform(commits, new Function<RepositoryCommit, Commit>() {
+			@Override
+			public Commit apply(RepositoryCommit input) {
+				return new Commit(input.getCommitter().getLogin(), input.getCommitter().getAvatarUrl(), input.getSha());
+			}
+		});
 	}
 
-	private Commit dgageotCommit() {
-		return new Commit("dgageot", "https://secure.gravatar.com/avatar/f0887bf6175ba40dca795eb37883a8cf", "");
+	private List<RepositoryCommit> getCommitsFromGithub() {
+		try {
+			GitHubClient client = new GitHubClient("github", -1, "http");
+			Repository repository = new RepositoryService(client).getRepository("jlm", "NodeGravatar");
+			return new CommitService(client).getCommits(repository);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
-	private Commit jlmCommit(String sha1) {
-		return new Commit("jlm", "https://secure.gravatar.com/avatar/649d3668d3ba68e75a3441dec9eac26e", sha1);
-	}
 }
