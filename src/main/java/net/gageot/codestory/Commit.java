@@ -1,10 +1,10 @@
 package net.gageot.codestory;
 
 public class Commit {
-	private String committer;
-	private String imageUrl;
-	private String sha1;
-	private String date;
+	private final String committer;
+	private final String imageUrl;
+	private final String sha1;
+	private final String date;
 
 	public Commit(String committer, String imageURL, String sha1) {
 		this.committer = committer;

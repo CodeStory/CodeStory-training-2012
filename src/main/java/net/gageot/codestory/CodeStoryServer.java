@@ -1,5 +1,6 @@
 package net.gageot.codestory;
 
+import com.google.common.util.concurrent.*;
 import com.sun.jersey.api.container.httpserver.*;
 import com.sun.jersey.api.core.*;
 import com.sun.net.httpserver.*;
@@ -9,8 +10,21 @@ import javax.ws.rs.*;
 import java.io.*;
 import java.util.*;
 
+import static java.lang.String.*;
+
 @Path("/")
-public class CodeStoryServer {
+public class CodeStoryServer extends AbstractIdleService {
+	private final int port;
+	private HttpServer httpServer;
+
+	public CodeStoryServer(int port) {
+		this.port = port;
+	}
+
+	public int getPort() {
+		return port;
+	}
+
 	@GET
 	@Path("commits.json")
 	@Produces("application/json")
@@ -30,12 +44,16 @@ public class CodeStoryServer {
 		return new File("web", path);
 	}
 
-	public static HttpServer start(int port) throws IOException {
+	@Override
+	protected void startUp() throws IOException {
 		ResourceConfig config = new DefaultResourceConfig(JacksonJsonProvider.class, CodeStoryServer.class);
 
-		HttpServer httpServer = HttpServerFactory.create("http://localhost:" + port + "/", config);
+		httpServer = HttpServerFactory.create(format("http://localhost:%d/", port), config);
 		httpServer.start();
+	}
 
-		return httpServer;
+	@Override
+	protected void shutDown() {
+		httpServer.stop(1);
 	}
 }

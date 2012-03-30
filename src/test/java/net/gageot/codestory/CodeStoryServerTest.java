@@ -1,5 +1,6 @@
 package net.gageot.codestory;
 
+import net.gageot.testing.*;
 import org.apache.commons.exec.*;
 import org.junit.*;
 
@@ -9,19 +10,23 @@ import static org.hamcrest.Matchers.*;
 
 public class CodeStoryServerTest {
 	@ClassRule
-	public static HttpServerRule server = new HttpServerRule();
+	public static ServiceRule<CodeStoryServer> server = ServiceRule.create();
 
 	@Test
 	public void should_retrieve_commits_as_json() {
-		given().port(server.port()).
+		given().port(port()).
 				expect().body("committer", hasItems("dgageot", "jeanlaurent")).
 				when().get("/commits.json");
 	}
 
 	@Test
 	public void should_display_index() throws Exception {
-		if (0 != new DefaultExecutor().execute(CommandLine.parse("/usr/local/bin/node testIndex.js " + server.port()))) {
+		if (0 != new DefaultExecutor().execute(CommandLine.parse("/usr/local/bin/node testIndex.js " + port()))) {
 			fail("ERROR");
 		}
+	}
+
+	private int port() {
+		return server.service().getPort();
 	}
 }
