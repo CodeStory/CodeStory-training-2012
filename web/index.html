@@ -4,15 +4,12 @@
 	<title>Code Story</title>
 </head>
 <body>
-<div id="commits"></div>
+<ul id="timeline"></ul>
 
-<script id="commitsTemplate" type="text/template">
-	<ul id="timeline">
-		{{#.}}
-		<li><img src="{{imageUrl}}"/> {{committer}}</li>
-		<li><img src="{{imageUrl}}"/> {{committer}}</li>
-		{{/.}}
-	</ul>
+<script id="timelineTemplate" type="text/template">
+	{{#.}}
+	<li><img width="80" height="80" src="{{imageUrl}}"/> {{committer}} on {{date}}</li>
+	{{/.}}
 </script>
 
 <script src="jquery-1.7.1.min.js"></script>
@@ -81,7 +78,9 @@
 		}
 	];
 
-	$('#commits').html(Mustache.to_html($('#commitsTemplate').html(), commits));
+	$(document).ready(function () {
+		$('#timeline').html(Mustache.to_html($('#timelineTemplate').html(), commits));
+	});
 </script>
 
 </body>

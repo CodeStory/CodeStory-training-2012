@@ -1,6 +1,5 @@
 package net.gageot.codestory;
 
-import org.fest.assertions.*;
 import org.junit.*;
 
 import java.util.*;
@@ -11,7 +10,12 @@ public class CodeStoryTest {
 	private static final String JL_GRAVATAR = "https://secure.gravatar.com/avatar/649d3668d3ba68e75a3441dec9eac26e";
 	private static final String DAVID_GRAVATAR = "https://secure.gravatar.com/avatar/f0887bf6175ba40dca795eb37883a8cf";
 
-	List<Commit> commits = new CodeStory().getCommitsFrom("NodeGravatar");
+	private static List<Commit> commits;
+
+	@BeforeClass
+	public static void readCommits() {
+		commits = new CodeStory().getCommitsFrom("dgageot", "NodeGravatar");
+	}
 
 	@Test
 	public void should_get_commit_count_out_of_a_repository_name() {
@@ -20,21 +24,12 @@ public class CodeStoryTest {
 
 	@Test
 	public void should_get_committer_names_of_a_repository_commits() {
-		assertThat(commits).onProperty("committer").containsExactly("jlm", "jlm", "dgageot", "dgageot", "dgageot", "dgageot", "jlm", "jlm", "jlm", "jlm");
+		assertThat(commits).onProperty("committer").containsExactly("jeanlaurent", "jeanlaurent", "dgageot", "dgageot", "dgageot", "dgageot", "jeanlaurent", "jeanlaurent", "jeanlaurent", "jeanlaurent");
 	}
 
 	@Test
 	public void should_get_image_url_of_a_repository_commits() {
-		Assertions.assertThat(commits.get(0).getImageUrl()).startsWith(JL_GRAVATAR);
-		Assertions.assertThat(commits.get(1).getImageUrl()).startsWith(JL_GRAVATAR);
-		Assertions.assertThat(commits.get(2).getImageUrl()).startsWith(DAVID_GRAVATAR);
-		Assertions.assertThat(commits.get(3).getImageUrl()).startsWith(DAVID_GRAVATAR);
-		Assertions.assertThat(commits.get(4).getImageUrl()).startsWith(DAVID_GRAVATAR);
-		Assertions.assertThat(commits.get(5).getImageUrl()).startsWith(DAVID_GRAVATAR);
-		Assertions.assertThat(commits.get(6).getImageUrl()).startsWith(JL_GRAVATAR);
-		Assertions.assertThat(commits.get(7).getImageUrl()).startsWith(JL_GRAVATAR);
-		Assertions.assertThat(commits.get(8).getImageUrl()).startsWith(JL_GRAVATAR);
-		Assertions.assertThat(commits.get(9).getImageUrl()).startsWith(JL_GRAVATAR);
+		assertThat(commits).onProperty("imageUrl").containsExactly(JL_GRAVATAR, JL_GRAVATAR, DAVID_GRAVATAR, DAVID_GRAVATAR, DAVID_GRAVATAR, DAVID_GRAVATAR, JL_GRAVATAR, JL_GRAVATAR, JL_GRAVATAR, JL_GRAVATAR);
 	}
 
 	@Test

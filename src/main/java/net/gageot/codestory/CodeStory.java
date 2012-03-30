@@ -9,26 +9,27 @@ import java.io.*;
 import java.util.*;
 
 import static com.google.common.collect.Lists.*;
+import static org.apache.commons.lang.StringUtils.*;
 
 public class CodeStory {
-	public List<Commit> getCommitsFrom(String nodeGravatar) {
-		List<RepositoryCommit> commits = getCommitsFromGithub();
-		return transform(commits, new Function<RepositoryCommit, Commit>() {
+	public List<Commit> getCommitsFrom(String login, String project) {
+		return transform(getCommitsFromGithub(login, project), new Function<RepositoryCommit, Commit>() {
 			@Override
 			public Commit apply(RepositoryCommit input) {
-				return new Commit(input.getCommitter().getLogin(), input.getCommitter().getAvatarUrl(), input.getSha());
+				return new Commit(input.getCommitter().getLogin(), substringBefore(input.getCommitter().getAvatarUrl(), "?"), input.getSha());
 			}
 		});
 	}
 
-	private List<RepositoryCommit> getCommitsFromGithub() {
+	private List<RepositoryCommit> getCommitsFromGithub(String login, String project) {
+		GitHubClient client = GitHubClientFactory.create();
+
 		try {
-			GitHubClient client = new GitHubClient("github", -1, "http");
-			Repository repository = new RepositoryService(client).getRepository("jlm", "NodeGravatar");
+			Repository repository = new RepositoryService(client).getRepository(login, project);
+
 			return new CommitService(client).getCommits(repository);
 		} catch (IOException e) {
-			throw new RuntimeException(e);
+			throw Throwables.propagate(e);
 		}
 	}
-
 }
