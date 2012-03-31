@@ -6,9 +6,9 @@ public class Commit {
 	private final String sha1;
 	private final String date;
 
-	public Commit(String committer, String imageURL, String sha1) {
+	public Commit(String committer, String imageUrl, String sha1) {
 		this.committer = committer;
-		this.imageUrl = imageURL;
+		this.imageUrl = imageUrl;
 		this.sha1 = sha1;
 		this.date = "29/03/2012";
 	}

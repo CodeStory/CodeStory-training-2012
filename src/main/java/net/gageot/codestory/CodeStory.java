@@ -12,17 +12,20 @@ import static com.google.common.collect.FluentIterable.*;
 import static org.apache.commons.lang.StringUtils.*;
 
 public class CodeStory {
-	public List<Commit> getCommitsFrom(String login, String project) {
-		return from(getCommitsFromGithub(login, project)).transform(new Function<RepositoryCommit, Commit>() {
-			@Override
-			public Commit apply(RepositoryCommit commit) {
-				User committer = commit.getCommitter();
-				return new Commit(committer.getLogin(), substringBefore(committer.getAvatarUrl(), "?"), commit.getSha());
-			}
-		}).toImmutableList();
+	public List<Commit> commits(String login, String project) {
+		return from(commitsFromGithub(login, project)).transform(TO_COMMIT).toImmutableList();
 	}
 
-	private List<RepositoryCommit> getCommitsFromGithub(String login, String project) {
+	private static final Function<RepositoryCommit, Commit> TO_COMMIT = new Function<RepositoryCommit, Commit>() {
+		@Override
+		public Commit apply(RepositoryCommit commit) {
+			User committer = commit.getCommitter();
+
+			return new Commit(committer.getLogin(), substringBefore(committer.getAvatarUrl(), "?"), commit.getSha());
+		}
+	};
+
+	private List<RepositoryCommit> commitsFromGithub(String login, String project) {
 		GitHubClient client = GitHubClientFactory.create();
 
 		try {

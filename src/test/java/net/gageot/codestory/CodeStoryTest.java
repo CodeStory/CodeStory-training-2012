@@ -14,7 +14,7 @@ public class CodeStoryTest {
 
 	@BeforeClass
 	public static void readCommits() {
-		commits = new CodeStory().getCommitsFrom("dgageot", "NodeGravatar");
+		commits = new CodeStory().commits("dgageot", "NodeGravatar");
 	}
 
 	@Test

@@ -11,14 +11,8 @@ import java.io.*;
 import static java.lang.String.*;
 
 public class CodeStoryServer extends AbstractIdleService {
-	private static final int DEFAULT_PORT = 8080;
-
 	private final int port;
 	private HttpServer httpServer;
-
-	public CodeStoryServer() {
-		this(DEFAULT_PORT);
-	}
 
 	public CodeStoryServer(int port) {
 		this.port = port;
@@ -30,9 +24,9 @@ public class CodeStoryServer extends AbstractIdleService {
 
 	@Override
 	protected void startUp() throws IOException {
-		ResourceConfig config = new DefaultResourceConfig(JacksonJsonProvider.class, CodeStoryResource.class);
+		ResourceConfig configuration = new DefaultResourceConfig(JacksonJsonProvider.class, CodeStoryResource.class);
 
-		httpServer = HttpServerFactory.create(format("http://localhost:%d/", port), config);
+		httpServer = HttpServerFactory.create(format("http://localhost:%d/", port), configuration);
 		httpServer.start();
 	}
 

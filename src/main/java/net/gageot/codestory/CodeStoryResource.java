@@ -10,7 +10,7 @@ public class CodeStoryResource {
 	@Path("commits.json")
 	@Produces("application/json")
 	public List<Commit> commits() {
-		return new CodeStory().getCommitsFrom("dgageot", "NodeGravatar");
+		return new CodeStory().commits("dgageot", "NodeGravatar");
 	}
 
 	@GET
