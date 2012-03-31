@@ -3,22 +3,23 @@ package net.gageot.testing;
 import com.google.common.util.concurrent.*;
 import org.junit.rules.*;
 
-import java.lang.reflect.*;
 import java.util.*;
 
 public class ServiceRule<T extends Service> extends ExternalResource {
 	private static final int TRY_COUNT = 10;
 	private static final int DEFAULT_PORT = 8183;
 
+	private final Class<T> serviceClass;
 	private final Random random;
 	private T service;
 
-	private ServiceRule() {
+	private ServiceRule(Class<T> serviceClass) {
+		this.serviceClass = serviceClass;
 		random = new Random();
 	}
 
-	public static <T extends Service> ServiceRule<T> create() {
-		return new ServiceRule<T>();
+	public static <T extends Service> ServiceRule<T> create(Class<T> serviceClass) {
+		return new ServiceRule<T>(serviceClass);
 	}
 
 	@Override
@@ -44,10 +45,7 @@ public class ServiceRule<T extends Service> extends ExternalResource {
 
 	@SuppressWarnings("unchecked")
 	private T createServive(int port) throws Exception {
-		ParameterizedType parameterizedType = (ParameterizedType) getClass().getGenericSuperclass();
-		Class<T> serverClass = (Class<T>) parameterizedType.getActualTypeArguments()[0];
-
-		return serverClass.getDeclaredConstructor(int.class).newInstance(port);
+		return serviceClass.getDeclaredConstructor(int.class).newInstance(port);
 	}
 
 	public T service() {

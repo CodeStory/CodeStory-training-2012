@@ -14,11 +14,17 @@ import static java.lang.String.*;
 
 @Path("/")
 public class CodeStoryServer extends AbstractIdleService {
+	private static final int DEFAULT_PORT = 8080;
+
 	private final int port;
 	private HttpServer httpServer;
 
 	public CodeStoryServer(int port) {
 		this.port = port;
+	}
+
+	public CodeStoryServer() {
+		this(DEFAULT_PORT);
 	}
 
 	public int getPort() {

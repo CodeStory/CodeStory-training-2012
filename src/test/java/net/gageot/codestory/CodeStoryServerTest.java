@@ -10,7 +10,7 @@ import static org.hamcrest.Matchers.*;
 
 public class CodeStoryServerTest {
 	@ClassRule
-	public static ServiceRule<CodeStoryServer> server = ServiceRule.create();
+	public static ServiceRule<CodeStoryServer> server = ServiceRule.create(CodeStoryServer.class);
 
 	@Test
 	public void should_retrieve_commits_as_json() {
