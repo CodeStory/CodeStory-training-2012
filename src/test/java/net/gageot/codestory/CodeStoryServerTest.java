@@ -6,11 +6,12 @@ import org.junit.*;
 
 import static com.jayway.restassured.RestAssured.*;
 import static junit.framework.Assert.*;
+import static net.gageot.testing.ServiceRule.*;
 import static org.hamcrest.Matchers.*;
 
 public class CodeStoryServerTest {
 	@ClassRule
-	public static ServiceRule<CodeStoryServer> server = ServiceRule.create(CodeStoryServer.class);
+	public static ServiceRule<CodeStoryServer> server = start(CodeStoryServer.class);
 
 	@Test
 	public void should_retrieve_commits_as_json() {
@@ -26,7 +27,7 @@ public class CodeStoryServerTest {
 		}
 	}
 
-	private int port() {
-		return server.service().getPort();
+	static int port() {
+		return server.service().port();
 	}
 }

@@ -10,15 +10,14 @@ public class ServiceRule<T extends Service> extends ExternalResource {
 	private static final int DEFAULT_PORT = 8183;
 
 	private final Class<T> serviceClass;
-	private final Random random;
+	private final Random random = new Random();
 	private T service;
 
 	private ServiceRule(Class<T> serviceClass) {
 		this.serviceClass = serviceClass;
-		random = new Random();
 	}
 
-	public static <T extends Service> ServiceRule<T> create(Class<T> serviceClass) {
+	public static <T extends Service> ServiceRule<T> start(Class<T> serviceClass) {
 		return new ServiceRule<T>(serviceClass);
 	}
 
@@ -26,7 +25,7 @@ public class ServiceRule<T extends Service> extends ExternalResource {
 	protected void before() {
 		for (int i = 0; i < TRY_COUNT; i++) {
 			try {
-				service = createServive(getRandomPort());
+				service = createServive(randomPort());
 				service.startAndWait();
 				return;
 			} catch (Exception e) {
@@ -52,7 +51,7 @@ public class ServiceRule<T extends Service> extends ExternalResource {
 		return service;
 	}
 
-	private synchronized int getRandomPort() {
+	private synchronized int randomPort() {
 		return DEFAULT_PORT + random.nextInt(1000);
 	}
 }
