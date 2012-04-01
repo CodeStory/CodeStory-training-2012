@@ -12,9 +12,6 @@ public class CodeStoryServerTest {
 	@ClassRule
 	public static ServiceRule<CodeStoryServer> server = start(CodeStoryServer.class);
 
-	@Rule
-	public ShellRule shell = new ShellRule();
-
 	@Test
 	public void should_retrieve_commits_as_json() {
 		given().port(port()).
@@ -24,7 +21,7 @@ public class CodeStoryServerTest {
 
 	@Test
 	public void should_display_index() throws Exception {
-		if (0 != shell.execute("/usr/local/bin/node testIndex.js %d", port())) {
+		if (0 != new Shell().execute("/usr/local/bin/node testIndex.js %d", port())) {
 			fail("ERROR");
 		}
 	}
