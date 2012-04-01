@@ -48,5 +48,6 @@ if [ $? -ne 0 ]; then
 	exit_ko "Unable to push"
 fi
 
+# Update working directory
 cd ${LOCATION} && git fetch ${REMOTE}
 exit_ok "Yet another successful push!"
