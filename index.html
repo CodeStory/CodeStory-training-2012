@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="UTF-8"/>
 	<title>CodeStory - Homepage</title>
 	<style type="text/css">
 		body {
@@ -17,19 +18,84 @@
 			margin-top: 12px;
 			border-radius: 7px;
 			box-shadow: 2px 2px 5px gray;
+			min-height: 100px;
 		}
 
 		li .date {
-			float: right;
+			float: left;
+			width: 100px;
+			margin-left: 5px;
+			text-align: right;
+			font-style: italic;
+		}
+
+		.avatar {
+			width: 80px;
+			height: 80px;
+			border: 1px solid gray;
+			box-shadow: 2px 2px 5px gray;
+		}
+
+		.message {
+			float: left;
+			font-weight: bold;
+			margin-left: 5px;
+			text-align: center;
+			width: 360px;
+			display: block;
+		}
+
+		.commiter {
+			float: left;
+			width: 85px;
+			text-align: center;
+			font-style: italic;
 		}
 	</style>
 </head>
 <body>
-<ul>
-	<li>dgageot <span class="date">02/12/2012</span></li>
-	<li>jeanlaurent <span class="date">01/12/2012</span></li>
-	<li>eric <span class="date">29/11/2012</span></li>
+<ul id="commits">
+	<script id="commitsTemplate" type="text/template">
+		{{#commits}}
+		<li>
+			<div class="commiter">
+				<img class="avatar" src="{{avatar}}"/>
+				{{login}}
+			</div>
+			<div class="message">{{message}}</div>
+			<div class="date">{{date}}</div>
+		</li>
+		{{/commits}}
+	</script>
 </ul>
+<script src="jquery.js"></script>
+<script src="mustache.js"></script>
+<script>
+	var commits = {
+		"commits":[
+			{
+				"login":"dgageot",
+				"avatar":"https://secure.gravatar.com/avatar/f0887bf6175ba40dca795eb37883a8cf",
+				"date":"02/12/2012",
+				"message":"Troisième commit"
+			},
+			{
+				"login":"jeanlaurent",
+				"avatar":"https://secure.gravatar.com/avatar/649d3668d3ba68e75a3441dec9eac26e",
+				"date":"01/12/2012",
+				"message":"Deuxième commit"
+			},
+			{
+				"login":"eric",
+				"avatar":"https://secure.gravatar.com/avatar/77da98419ae312eb0e322a3dac44a734",
+				"date":"29/11/2012",
+				"message":"Premier commit"
+			}
+		]
+	};
+
+	$("#commits").html(Mustache.to_html($('#commitsTemplate').html(), commits));
+</script>
 
 </body>
 </html>
