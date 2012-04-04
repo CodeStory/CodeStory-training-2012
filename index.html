@@ -56,45 +56,24 @@
 <body>
 <ul id="commits">
 	<script id="commitsTemplate" type="text/template">
-		{{#commits}}
+		{{#.}}
 		<li>
 			<div class="commiter">
-				<img class="avatar" src="{{avatar}}"/>
+				<img class="avatar" src="{{avatarUrl}}"/>
 				{{login}}
 			</div>
 			<div class="message">{{message}}</div>
 			<div class="date">{{date}}</div>
 		</li>
-		{{/commits}}
+		{{/.}}
 	</script>
 </ul>
 <script src="jquery.js"></script>
 <script src="mustache.js"></script>
 <script>
-	var commits = {
-		"commits":[
-			{
-				"login":"dgageot",
-				"avatar":"https://secure.gravatar.com/avatar/f0887bf6175ba40dca795eb37883a8cf",
-				"date":"02/12/2012",
-				"message":"Troisième commit"
-			},
-			{
-				"login":"jeanlaurent",
-				"avatar":"https://secure.gravatar.com/avatar/649d3668d3ba68e75a3441dec9eac26e",
-				"date":"01/12/2012",
-				"message":"Deuxième commit"
-			},
-			{
-				"login":"eric",
-				"avatar":"https://secure.gravatar.com/avatar/77da98419ae312eb0e322a3dac44a734",
-				"date":"29/11/2012",
-				"message":"Premier commit"
-			}
-		]
-	};
-
-	$("#commits").html(Mustache.to_html($('#commitsTemplate').html(), commits));
+	$.getJSON("commits", function (json) {
+		$("#commits").html(Mustache.to_html($('#commitsTemplate').html(), json));
+	});
 </script>
 
 </body>
