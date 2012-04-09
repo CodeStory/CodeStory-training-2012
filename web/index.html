@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>CodeStory - HomePage</title>
+	<link rel="stylesheet" type="text/css" href="bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="style.less"/>
+</head>
+<body>
+<header>
+	<p>CodeStory</p>
+</header>
+<div id="main">
+	<ul id="commits">
+		<script id="commitsTemplate" type="text/x-template">
+			{{#.}}
+			<li>
+				<div class="commiter">
+					<img src="{{avatarUrl}}"/>
+					{{commiter}}
+				</div>
+				<div class="message">{{message}}</div>
+				<div class="date">{{date}}</div>
+			</li>
+			{{/.}}
+		</script>
+	</ul>
+</div>
+<footer></footer>
+</body>
+<script src="mustache.js"></script>
+<script src="jquery.js"></script>
+<script src="bootstrap.min.js"></script>
+<script>
+	$.getJSON('commits.json', function (json) {
+		$("#commits").html(Mustache.to_html($('#commitsTemplate').html(), json));
+	});
+</script>
+</html>
