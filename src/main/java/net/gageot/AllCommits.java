@@ -16,7 +16,7 @@ import static com.google.common.collect.FluentIterable.*;
 @Singleton
 public class AllCommits {
 	private static final DateTimeZone UTC = DateTimeZone.forID("UTC");
-	private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormat.forPattern("yyyy-MM-dd hh:mm:ss").withZoneUTC();
+	private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormat.forPattern("yyyy-MM-dd").withZoneUTC();
 	private static final String USER = "dgageot";
 	private static final String PROJECT = "NodeGravatar";
 

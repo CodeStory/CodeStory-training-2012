@@ -28,7 +28,7 @@ public class AllCommitsTest {
 
 		assertThat(first.getLogin()).isEqualTo("jeanlaurent");
 		assertThat(first.getAvatarUrl()).isEqualTo("https://secure.gravatar.com/avatar/649d3668d3ba68e75a3441dec9eac26e?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png");
-		assertThat(first.getDate()).isEqualTo("2012-03-29 06:57:48");
+		assertThat(first.getDate()).isEqualTo("2012-03-29");
 		assertThat(first.getMessage()).isEqualTo("removing file extensiosn");
 	}
 
@@ -47,7 +47,7 @@ public class AllCommitsTest {
 	public void should_retrieve_dates() {
 		List<Commit> commits = allCommits.list();
 
-		assertThat(commits).onProperty("date").containsSequence("2012-03-29 06:57:48", "2012-03-29 06:56:20");
+		assertThat(commits).onProperty("date").containsOnly("2012-03-29");
 	}
 
 	@Test
