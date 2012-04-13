@@ -1,5 +1,6 @@
 package net.gageot;
 
+import com.google.common.io.*;
 import com.google.common.util.concurrent.*;
 import com.google.inject.*;
 import groovy.lang.Binding;
@@ -7,6 +8,9 @@ import groovy.lang.*;
 import net.gageot.codestory.*;
 
 import java.util.*;
+
+import static com.google.common.base.Charsets.*;
+import static com.google.common.io.Resources.*;
 
 public class AllBadges {
 	private AllCommits allCommits;
@@ -45,7 +49,8 @@ public class AllBadges {
 		GroovyShell shell = new GroovyShell(binding);
 
 		try {
-			return (String) shell.evaluate("((List<net.gageot.codestory.Commit>) commits).get(0).getLogin();");
+			String script = Resources.toString(getResource("TopCommiter.groovy"), UTF_8);
+			return (String) shell.evaluate(script);
 		} catch (Exception e) {
 			throw new RuntimeException("unable to understand the groovy script", e);
 		}
