@@ -36,13 +36,13 @@ public class AllCommits {
 		return DATE_FORMATTER.print(new DateTime(date, UTC));
 	}
 
-	private static final Function<RepositoryCommit, Commit> TO_COMMIT = new Function<RepositoryCommit, Commit>() {
+	private static Function<RepositoryCommit, Commit> TO_COMMIT = new Function<RepositoryCommit, Commit>() {
 		@Override
 		public Commit apply(RepositoryCommit commit) {
 			String login = commit.getCommitter().getLogin();
 			String date = formatDate(commit.getCommit().getCommitter().getDate());
-			String message = "removing file extensiosn";
-			String avatarUrl = "https://secure.gravatar.com/avatar/649d3668d3ba68e75a3441dec9eac26e?s=140&d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png";
+			String message = commit.getCommit().getMessage();
+			String avatarUrl = commit.getCommitter().getAvatarUrl();
 
 			return new Commit(login, date, message, avatarUrl);
 		}
