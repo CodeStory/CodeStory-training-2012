@@ -1,14 +1,18 @@
 package net.gageot;
 
-import com.google.common.util.concurrent.*;
 import org.junit.*;
 
-public class CodeStoryServerTest {
+import java.util.*;
 
+public class CodeStoryServerTest {
 	@Test
-	public void server_should_startup() throws Exception {
-		CodeStoryServer codeStoryServer = new CodeStoryServer(8080);
-		Service.State state = codeStoryServer.startAndWait();
+	public void server_should_start() {
+		CodeStoryServer server = new CodeStoryServer(randomPort());
+		server.startAndWait();
+		server.stopAndWait();
 	}
 
+	private static int randomPort() {
+		return 8080 + new Random().nextInt(100);
+	}
 }

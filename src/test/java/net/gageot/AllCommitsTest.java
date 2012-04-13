@@ -11,19 +11,19 @@ public class AllCommitsTest {
 	private AllCommits allCommits;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		allCommits = new AllCommits();
 	}
 
 	@Test
-	public void should_count_commits() throws Exception {
+	public void should_count_commits() {
 		List<Commit> commits = allCommits.list();
 
 		assertThat(commits).hasSize(10);
 	}
 
 	@Test
-	public void should_retrieve_first_commit() throws Exception {
+	public void should_retrieve_first_commit() {
 		Commit first = allCommits.list().get(0);
 
 		assertThat(first.getLogin()).isEqualTo("jeanlaurent");
@@ -33,7 +33,7 @@ public class AllCommitsTest {
 	}
 
 	@Test
-	public void should_retrieve_all_authors() throws Exception {
+	public void should_retrieve_all_authors() {
 		List<Commit> commits = allCommits.list();
 
 		assertThat(commits).onProperty("login").containsExactly(//
@@ -44,7 +44,7 @@ public class AllCommitsTest {
 	}
 
 	@Test
-	public void should_retrieve_dates() throws Exception {
+	public void should_retrieve_dates() {
 		List<Commit> commits = allCommits.list();
 
 		assertThat(commits).onProperty("date").containsSequence("2012-03-29 06:57:48", "2012-03-29 06:56:20");
