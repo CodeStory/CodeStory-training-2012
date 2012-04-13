@@ -60,7 +60,7 @@ public class CodeStoryResource {
 	@Path("commits.json")
 	@Produces("application/json;charset=UTF-8")
 	public List<Commit> commits() {
-		return allCommits.list();
+		return allCommits.list("dgageot", "sonar");
 	}
 
 	private static File staticResource(String path) {

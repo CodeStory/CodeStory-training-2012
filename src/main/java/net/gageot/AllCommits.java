@@ -17,16 +17,14 @@ import static com.google.common.collect.FluentIterable.*;
 public class AllCommits {
 	private static final DateTimeZone UTC = DateTimeZone.forID("UTC");
 	private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormat.forPattern("yyyy-MM-dd").withZoneUTC();
-	private static final String USER = "dgageot";
-	private static final String PROJECT = "NodeGravatar";
 
-	public List<Commit> list() {
-		return from(projectCommits()).transform(TO_COMMIT).toImmutableList();
+	public List<Commit> list(String userName, String project) {
+		return from(projectCommits(userName, project)).transform(TO_COMMIT).toImmutableList();
 	}
 
-	private List<RepositoryCommit> projectCommits() {
+	private List<RepositoryCommit> projectCommits(String userName, String project) {
 		try {
-			return new CommitService().getCommits(new RepositoryService().getRepository(USER, PROJECT));
+			return new CommitService().getCommits(new RepositoryService().getRepository(userName, project));
 		} catch (IOException e) {
 			throw Throwables.propagate(e);
 		}
@@ -39,10 +37,10 @@ public class AllCommits {
 	private static Function<RepositoryCommit, Commit> TO_COMMIT = new Function<RepositoryCommit, Commit>() {
 		@Override
 		public Commit apply(RepositoryCommit commit) {
-			String login = commit.getCommitter().getLogin();
-			String date = formatDate(commit.getCommit().getCommitter().getDate());
+			String login = null == commit.getAuthor() ? "Unknown" : commit.getAuthor().getLogin();
+			String date = formatDate(commit.getCommit().getAuthor().getDate());
 			String message = commit.getCommit().getMessage();
-			String avatarUrl = commit.getCommitter().getAvatarUrl();
+			String avatarUrl = null == commit.getAuthor() ? "" : commit.getAuthor().getAvatarUrl();
 
 			return new Commit(login, date, message, avatarUrl);
 		}
