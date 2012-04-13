@@ -2,19 +2,22 @@ package net.gageot;
 
 import com.google.inject.*;
 import net.gageot.codestory.*;
+import net.gageot.util.proxy.*;
 import org.lesscss.*;
 
 import javax.ws.rs.*;
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.*;
 
 @Path("/")
+@Singleton
 public class CodeStoryResource {
 	private final AllCommits allCommits;
 
 	@Inject
 	public CodeStoryResource(AllCommits allCommits) {
-		this.allCommits = allCommits;
+		this.allCommits = CacheProxy.wrap(allCommits, 1, TimeUnit.MINUTES, 100);
 	}
 
 	@GET

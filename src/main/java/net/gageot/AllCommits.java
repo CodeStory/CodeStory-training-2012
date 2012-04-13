@@ -19,6 +19,7 @@ public class AllCommits {
 	private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormat.forPattern("yyyy-MM-dd").withZoneUTC();
 
 	public List<Commit> list(String userName, String project) {
+		System.out.println("Retrieve commits");
 		return from(projectCommits(userName, project)).transform(TO_COMMIT).toImmutableList();
 	}
 
