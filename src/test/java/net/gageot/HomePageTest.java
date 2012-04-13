@@ -38,7 +38,7 @@ public class HomePageTest {
 		assertThat(exitCode).isZero();
 	}
 
-	private static int runZombieJsTest(String jsFile) {
+	static int runZombieJsTest(String jsFile) {
 		return new Shell().execute("./mochalauncher.sh ./src/test/resources/%s %d", jsFile, server.service().getPort());
 	}
 }

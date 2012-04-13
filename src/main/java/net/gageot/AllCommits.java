@@ -1,7 +1,6 @@
 package net.gageot;
 
 import com.google.common.base.*;
-import com.google.inject.*;
 import net.gageot.codestory.Commit;
 import net.gageot.util.dates.*;
 import net.gageot.util.proxy.*;
@@ -17,7 +16,6 @@ public class AllCommits {
 	private final String userName;
 	private final String project;
 
-	@Inject
 	public AllCommits(String userName, String project) {
 		this.userName = userName;
 		this.project = project;

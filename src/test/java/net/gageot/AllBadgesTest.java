@@ -29,7 +29,7 @@ public class AllBadgesTest {
 		assertThat(name).isEqualTo("jeanlaurent");
 	}
 
-	private static Commit commit(String commiter) {
+	static Commit commit(String commiter) {
 		return when(mock(Commit.class).getLogin()).thenReturn(commiter).getMock();
 	}
 }

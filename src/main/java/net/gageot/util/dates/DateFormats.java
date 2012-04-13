@@ -7,13 +7,13 @@ import java.util.*;
 
 public final class DateFormats {
 	private static final DateTimeZone UTC = DateTimeZone.forID("UTC");
-	private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormat.forPattern("yyyy-MM-dd").withZoneUTC();
+	private static final DateTimeFormatter FORMAT = DateTimeFormat.forPattern("yyyy-MM-dd").withZoneUTC();
 
 	private DateFormats() {
 		// static class
 	}
 
 	public static String format(Date date) {
-		return DATE_FORMATTER.print(new DateTime(date, UTC));
+		return FORMAT.print(new DateTime(date, UTC));
 	}
 }

@@ -7,12 +7,7 @@ import groovy.lang.*;
 import static com.google.common.collect.ImmutableMap.*;
 
 public class AllBadges {
-	private AllCommits allCommits;
-
-	@Inject
-	public AllBadges(AllCommits allCommits) {
-		this.allCommits = allCommits;
-	}
+	@Inject AllCommits allCommits;
 
 	public String topCommiter() {
 		return (String) groovy("commits.countBy { it.login }.max { it.value }.key");

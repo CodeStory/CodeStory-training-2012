@@ -12,7 +12,7 @@ public class CodeStoryServerTest {
 		server.stopAndWait();
 	}
 
-	private static int randomPort() {
+	static int randomPort() {
 		return 8080 + new Random().nextInt(100);
 	}
 }
