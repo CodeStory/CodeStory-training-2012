@@ -17,6 +17,8 @@ import static com.google.common.collect.FluentIterable.*;
 public class AllCommits {
 	private static final DateTimeZone UTC = DateTimeZone.forID("UTC");
 	private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormat.forPattern("yyyy-MM-dd hh:mm:ss").withZoneUTC();
+	private static final String USER = "dgageot";
+	private static final String PROJECT = "NodeGravatar";
 
 	public List<Commit> list() {
 		return from(projectCommits()).transform(TO_COMMIT).toImmutableList();
@@ -24,7 +26,7 @@ public class AllCommits {
 
 	private List<RepositoryCommit> projectCommits() {
 		try {
-			return new CommitService().getCommits(new RepositoryService().getRepository("dgageot", "NodeGravatar"));
+			return new CommitService().getCommits(new RepositoryService().getRepository(USER, PROJECT));
 		} catch (IOException e) {
 			throw Throwables.propagate(e);
 		}
