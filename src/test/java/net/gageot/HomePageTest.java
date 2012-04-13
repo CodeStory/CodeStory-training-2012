@@ -31,12 +31,12 @@ public class HomePageTest {
 				new Commit("jeanlaurent", "02/01/2012", "Deuxieme commit", "https://secure.gravatar.com/avatar/649d3668d3ba68e75a3441dec9eac26e"), //
 				new Commit("eric", "01/01/2012", "Premier commit", "https://secure.gravatar.com/avatar/77da98419ae312eb0e322a3dac44a734")));
 
-		int exitCode = runZombieJsTest("HomePageTest.js");
+		int exitCode = runZombieJsTest("HomePageTest.coffee");
 
 		assertThat(exitCode).isZero();
 	}
 
 	private static int runZombieJsTest(String jsFile) {
-		return new Shell().execute("/usr/local/bin/node src/test/resources/%s %d", jsFile, server.service().getPort());
+		return new Shell().execute("./mochalauncher.sh ./src/test/resources/%s %d", jsFile, server.service().getPort());
 	}
 }
