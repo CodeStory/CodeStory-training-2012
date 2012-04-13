@@ -1,5 +1,6 @@
 package net.gageot;
 
+import com.google.inject.*;
 import net.gageot.codestory.*;
 import net.gageot.test.rules.*;
 import net.gageot.test.utils.*;
@@ -12,10 +13,15 @@ import static org.fest.assertions.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class HomePageTest {
-	private CommitService commitService = mock(CommitService.class);
+	private static CommitService commitService = mock(CommitService.class);
 
 	@ClassRule
-	public static ServiceRule<CodeStoryServer> server = startWithRandomPort(CodeStoryServer.class);
+	public static ServiceRule<CodeStoryServer> server = startWithRandomPort(CodeStoryServer.class, new AbstractModule() {
+		@Override
+		protected void configure() {
+			bind(CommitService.class).toInstance(commitService);
+		}
+	});
 
 	@Test
 	public void should_show_homepage() {
