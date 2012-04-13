@@ -19,12 +19,6 @@ public class AllCommits {
 	private static final DateTimeFormatter DATE_TIME_FORMATTER = forPattern("yyyy-MM-dd hh:mm:ss");
 	private static final DateTimeZone UTC = DateTimeZone.forID("UTC");
 
-	private String projectUrl;
-
-	public AllCommits(String projectUrl) {
-		this.projectUrl = projectUrl;
-	}
-
 	public List<Commit> list() {
 		try {
 			Repository repository = new RepositoryService().getRepository("dgageot", "NodeGravatar");

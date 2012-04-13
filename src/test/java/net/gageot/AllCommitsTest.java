@@ -12,7 +12,7 @@ public class AllCommitsTest {
 
 	@Before
 	public void setUp() throws Exception {
-		allCommits = new AllCommits("https://github.com/dgageot/NodeGravatar");
+		allCommits = new AllCommits();
 	}
 
 	@Test
