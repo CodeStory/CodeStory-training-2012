@@ -31,6 +31,13 @@ public class CodeStoryResource {
 	}
 
 	@GET
+	@Path("{path : .*\\.jpg}")
+	@Produces("image/jpeg")
+	public File jpeg(@PathParam("path") String path) {
+		return staticResource(path);
+	}
+
+	@GET
 	@Path("{path : .*\\.css}")
 	public File css(@PathParam("path") String path) {
 		return staticResource(path);

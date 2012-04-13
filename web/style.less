@@ -1,77 +1,89 @@
 body {
-	font-family: Helvetica, sans-serif;
-	background-color: white;
-}
-
-li {
-	list-style: none;
-	background-color: #deba7e;
-	width: 700px;
-	height: 100px;
-	margin: 0 auto 10px auto;
-	padding: 7px;
-	border-radius: 7px;
-	box-shadow: 1px 1px 7px lightgray;
-	display: table;
-	text-align: center;
-	border: 1px solid #be8730;
-	color: #8b6f42;
-}
-
-.commiter, .date, .message {
-	display: table-cell;
-}
-
-.commiter, .date {
-	width: 90px;
-	vertical-align: top;
-}
-
-.commiter img {
-	width: 80px;
-	height: 80px;
-	border-radius: 7px;
-	border: 1px solid #be8730;
-}
-
-.date {
-	text-align: right;
-	font-style: italic;
-}
-
-.message {
-	width: 100%;
-	font-weight: bold;
-	vertical-align: middle;
-}
-
-header {
-	background-color: #65b886;
-	box-shadow: 0 4px 6px 0 #d3d3d3;
-	border-bottom: 1px solid #315841;
-	position: fixed;
-	top: 0;
-	z-index: 99999;
-	width: 100%;
-	height: 60px;
-	padding: 20px;
-
-	p {
-		font-size: 30px;
-		color: #294a36;
-	}
+	font-family: 'Oxygen', sans-serif;
+	background-color: #e7e4be;
 }
 
 #main {
-	margin-top: 120px;
-	min-height: 600px;
-}
+	width: 1280px;
+	height: 860px;
+	background: url('background.png') no-repeat;
+	margin: 0 auto;
 
-footer {
-	background-color: #7495b8;
-	box-shadow: 0 4px 6px 0 gray;
-	height: 300px;
-	width: 100%;
-	margin-top: 60px;
-	padding: 60px 0;
+	a {
+		color: white;
+		font-size: 30px;
+		text-decoration: none;
+		display: block;
+		-webkit-transform: rotate(-90deg);
+		position: relative;
+		width: 200px;
+		height: 50px;
+		line-height: 50px;
+		vertical-align: middle;
+		text-align: center;
+	}
+
+	a:hover {
+		color: #753a2a;
+	}
+
+	a#navCommits {
+		left: 1067px;
+		top: 535px;
+	}
+
+	a#navBadges {
+		left: 7px;
+		top: 320px;
+	}
+
+	a#navStats {
+		left: 1075px;
+		top: 625px;
+	}
+
+	a#navCodeStory {
+		left: 170px;
+		top: -155px;
+		-webkit-transform: rotate(0);
+	}
+
+	#commits {
+		width: 390px;
+		height: 500px;
+		margin-left: 180px;
+		margin-top: 150px;
+
+		.commit {
+			margin-bottom: 50px;
+			min-height: 80px;
+
+			img {
+				-webkit-transform: rotate(-5deg);
+				width: 64px;
+				height: 64px;
+				margin-top: -10px;
+				margin-left: -10px;
+				padding-bottom: 25px;
+				box-shadow: 0 0 0 5px white, 0 0 0 6px lightgray, 0 0 8px 7px gray;
+				background-color: white;
+			}
+
+			.date {
+				-webkit-transform: rotate(-5deg);
+				margin-left: -3px;
+				margin-top: -35px;
+				font-family: 'Bad Script', cursive;
+			}
+
+			p {
+				margin-left: 80px;
+				margin-top: -60px;
+				font-family: 'Bad Script', cursive;
+				color: #00008b;
+				font-size: 24px;
+				line-height: 27px;
+			}
+		}
+	}
 }
