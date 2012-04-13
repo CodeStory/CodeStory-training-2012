@@ -45,7 +45,7 @@ public class AllBadges {
 
 	public String getTopCommiterGroovy() {
 		Binding binding = new Binding();
-		binding.setVariable("allCommits", allCommits.list());
+		binding.setVariable("commits", allCommits.list());
 		GroovyShell shell = new GroovyShell(binding);
 
 		try {
