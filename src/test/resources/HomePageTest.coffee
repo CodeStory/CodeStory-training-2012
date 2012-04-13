@@ -31,7 +31,6 @@ test("Checking Badges", ->
   Browser.visit(home, (e, browser, status) ->
     expect(browser.query("#best-commiter:contains('Awarded on 3/4/2012 for 2 commits.')")).to.be.ok()
     expect(browser.query("#best-commiter:contains('Best Commiter')")).to.be.ok()
+    expect(browser.query("#best-commiter")).to.be.ok();
   )
 )
-
-

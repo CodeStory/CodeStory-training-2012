@@ -20,7 +20,7 @@
 		<script id="commitsTemplate" type="text/x-template">
 			{{#.}}
 			<div class="commit">
-				<img src="{{avatarUrl}}"/>
+				<img class="portrait" src="{{avatarUrl}}"/>
 
 				<div class="date">{{date}}</div>
 				<p>{{message}}</p>
@@ -30,10 +30,12 @@
 	</div>
 	<div id="badges">
 		<div id="best-commiter" class="commit">
-			<img src="https://secure.gravatar.com/avatar/649d3668d3ba68e75a3441dec9eac26e"/>
+			<img class="csbadge" src="topCommiter.png"/>
 
-			<div class="date">Best Commiter</div>
-			<p>Awarded on 3/4/2012 for 2 commits.</p>
+			<p>Top Commiter</p>
+			<img class="portrait" src="https://secure.gravatar.com/avatar/649d3668d3ba68e75a3441dec9eac26e"/>
+
+			<div class="date">2012-03-03</div>
 		</div>
 	</div>
 	<div id="stats">
