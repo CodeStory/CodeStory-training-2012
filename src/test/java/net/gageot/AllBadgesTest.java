@@ -2,41 +2,34 @@ package net.gageot;
 
 import net.gageot.codestory.*;
 import org.junit.*;
+import org.junit.runner.*;
 import org.mockito.*;
+import org.mockito.runners.*;
 
 import java.util.*;
 
 import static java.util.Arrays.*;
 import static org.fest.assertions.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.BDDMockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
+@RunWith(MockitoJUnitRunner.class)
 public class AllBadgesTest {
-	private AllCommits allCommits = Mockito.mock(AllCommits.class);
-	private AllBadges allBadges = new AllBadges(allCommits);
+	@Mock AllCommits allCommits;
+	@InjectMocks AllBadges allBadges;
 
 	@Test
-	public void shouldFindTheTopCommiter() {
-		when(allCommits.list()).thenReturn(commitList());
+	public void should_find_top_commiter() {
+		List<Commit> commits = asList(commit("jeanlaurent"), commit("jeanlaurent"), commit("dgageot"), commit("eric"));
+		given(allCommits.list()).willReturn(commits);
 
-		String name = allBadges.topcommiter();
+		String name = allBadges.topCommiter();
 
 		assertThat(name).isEqualTo("jeanlaurent");
 	}
 
-	@Test
-	public void should_get_top_commiter() {
-		when(allCommits.list()).thenReturn(commitList());
-
-		String name = allBadges.getTopCommiterGroovy();
-
-		assertThat(name).isEqualTo("jeanlaurent");
-	}
-
-	private static List<Commit> commitList() {
-		return asList(commitFrom("jeanlaurent"), commitFrom("jeanlaurent"), commitFrom("David"), commitFrom("Eric"));
-	}
-
-	private static Commit commitFrom(String commiter) {
-		return new Commit(commiter, "", "", "");
+	private static Commit commit(String commiter) {
+		return when(mock(Commit.class).getLogin()).thenReturn(commiter).getMock();
 	}
 }
