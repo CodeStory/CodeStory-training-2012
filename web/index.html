@@ -18,14 +18,14 @@
 	<div id="commits">
 		Loading commits...
 		<script id="commitsTemplate" type="text/x-template">
-			{{#.}}
+			{{#commits}}
 			<div class="commit">
 				<img class="portrait" src="{{avatarUrl}}"/>
 
 				<div class="date">{{date}}</div>
 				<p>{{message}}</p>
 			</div>
-			{{/.}}
+			{{/commits}}
 		</script>
 	</div>
 	<div id="badges">
@@ -42,12 +42,12 @@
 	</div>
 </div>
 </body>
-<script src="mustache.js"></script>
+<script src="hogan.js"></script>
 <script src="jquery.js"></script>
 <script src="bootstrap.min.js"></script>
 <script>
 	$.getJSON('commits.json', function (json) {
-		$("#commits").html(Mustache.to_html($('#commitsTemplate').html(), json));
+		$("#commits").html(Hogan.compile($('#commitsTemplate').html()).render({commits:json}));
 	});
 </script>
 </html>
