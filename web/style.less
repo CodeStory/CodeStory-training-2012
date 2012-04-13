@@ -1,99 +1,109 @@
 body {
-    font-family: 'Oxygen', sans-serif;
-    background-color: #e7e4be;
+	font-family: 'Oxygen', sans-serif;
+	background-color: rgb(236, 232, 202);
+	background-image: url('background-repeat.png');
+	background-repeat: repeat-y;
+	background-position: center;
+}
+
+.centered(@width: 0, @height: 0){
+	width: @width;
+	height: @height;
+	margin: 0 auto;
+}
+
+.rotate(@angle: 0){
+	-webkit-transform: rotate(@angle);
 }
 
 #main {
-    width: 1280px;
-    height: 860px;
-    background: url('background.png') no-repeat;
-    margin: 0 auto;
+	background: url('background.png') no-repeat;
+	.centered(1280px, 857px);
 
-    a {
-        color: white;
-        font-size: 30px;
-        text-decoration: none;
-        display: block;
-        -webkit-transform: rotate(-90deg);
-        position: relative;
-        width: 200px;
-        height: 50px;
-        line-height: 50px;
-        vertical-align: middle;
-        text-align: center;
-    }
+	a {
+		.rotate(-90deg);
+		color: white;
+		font-size: 30px;
+		text-decoration: none;
+		display: block;
+		position: relative;
+		width: 200px;
+		height: 50px;
+		line-height: 50px;
+		vertical-align: middle;
+		text-align: center;
+	}
 
-    a:hover {
-        color: #753a2a;
-    }
+	a:hover {
+		color: #753a2a;
+	}
 
-    a#navCommits {
-        left: 7px;
-        top: 365px;
-    }
+	a#navCommits {
+		left: 7px;
+		top: 365px;
+	}
 
-    a#navBadges {
-        left: 1065px;
-        top: 495px;
-    }
+	a#navBadges {
+		left: 1065px;
+		top: 495px;
+	}
 
-    a#navStats {
-        left: 1075px;
-        top: 625px;
-    }
+	a#navStats {
+		left: 1075px;
+		top: 625px;
+	}
 
-    a#navCodeStory {
-        left: 170px;
-        top: -155px;
-        -webkit-transform: rotate(0);
-    }
+	a#navCodeStory {
+		left: 170px;
+		top: -155px;
+		.rotate(0);
+	}
 
-    #commits {
-        width: 390px;
-        height: 500px;
-        margin-left: 180px;
-        margin-top: 150px;
-        float: left;
-    }
+	#commits {
+		width: 390px;
+		height: 500px;
+		margin-left: 180px;
+		margin-top: 150px;
+		float: left;
+	}
 
-    #badges {
-        width: 390px;
-        height: 500px;
-        margin-left: 145px;
-        margin-top: 150px;
-        float: left;
-    }
+	#badges {
+		width: 390px;
+		height: 500px;
+		margin-left: 145px;
+		margin-top: 150px;
+		float: left;
+	}
 
-    .commit {
-        margin-bottom: 50px;
-        min-height: 80px;
+	.commit {
+		margin-bottom: 50px;
+		min-height: 80px;
+	}
 
-        img {
-            -webkit-transform: rotate(-5deg);
-            width: 64px;
-            height: 64px;
-            margin-top: -10px;
-            margin-left: -10px;
-            padding-bottom: 25px;
-            box-shadow: 0 0 0 5px white, 0 0 0 6px lightgray, 0 0 8px 7px gray;
-            background-color: white;
-        }
+	img {
+		.rotate(-5deg);
+		width: 64px;
+		height: 64px;
+		margin-top: -10px;
+		margin-left: -10px;
+		padding-bottom: 25px;
+		box-shadow: 0 0 0 5px white, 0 0 0 6px lightgray, 0 0 8px 7px gray;
+		background-color: white;
+	}
 
-        .date {
-            -webkit-transform: rotate(-5deg);
-            margin-left: -7px;
-            margin-top: -35px;
-            font-family: 'Bad Script', cursive;
-        }
+	.date {
+		.rotate(-5deg);
+		margin-left: -7px;
+		margin-top: -35px;
+		font-family: 'Bad Script', cursive;
+	}
 
-        p {
-            margin-left: 80px;
-            margin-top: -60px;
-            font-family: 'Bad Script', cursive;
-            color: #00008b;
-            font-size: 24px;
-            line-height: 27px;
-        }
-        
-    }
+	p {
+		margin-left: 80px;
+		margin-top: -60px;
+		font-family: 'Bad Script', cursive;
+		color: #00008b;
+		font-size: 24px;
+		line-height: 27px;
+	}
 }
