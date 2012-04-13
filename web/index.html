@@ -16,24 +16,16 @@
 	<a id="navCodeStory" href="#">CodeStory</a>
 
 	<div id="commits">
-		<div class="commit">
-			<img src="https://secure.gravatar.com/avatar/f0887bf6175ba40dca795eb37883a8cf"/>
+		<script id="commitsTemplate" type="text/x-template">
+			{{#.}}
+			<div class="commit">
+				<img src="{{avatarUrl}}"/>
 
-			<div class="date">26/01/2012</div>
-			<p>Premier commit</p>
-		</div>
-		<div class="commit">
-			<img src="https://secure.gravatar.com/avatar/f0887bf6175ba40dca795eb37883a8cf"/>
-
-			<div class="date">24/01/2012</div>
-			<p>Deuxieme commit</p>
-		</div>
-		<div class="commit">
-			<img src="https://secure.gravatar.com/avatar/f0887bf6175ba40dca795eb37883a8cf"/>
-
-			<div class="date">22/01/2012</div>
-			<p>Troisieme commit</p>
-		</div>
+				<div class="date">{{date}}</div>
+				<p>{{message}}</p>
+			</div>
+			{{/.}}
+		</script>
 	</div>
 	<div id="badges">
 	</div>
