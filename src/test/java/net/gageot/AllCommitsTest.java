@@ -8,7 +8,7 @@ import java.util.*;
 import static org.fest.assertions.Assertions.*;
 
 public class AllCommitsTest {
-	static List<Commit> commits = new AllCommits().list("dgageot", "NodeGravatar");
+	static List<Commit> commits = new AllCommits("dgageot", "NodeGravatar").list();
 
 	@Test
 	public void should_count_commits() {

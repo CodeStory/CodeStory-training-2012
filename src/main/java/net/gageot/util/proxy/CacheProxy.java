@@ -40,6 +40,10 @@ public final class CacheProxy<T> implements MethodInterceptor {
 	@Override
 	public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy) throws Throwable {
 		try {
+			if (method.getAnnotation(Cached.class) == null) {
+				return method.invoke(obj, args);
+			}
+
 			Object result = cache.get(new Invocation(method, args));
 			return NULL == result ? null : result;
 		} catch (Exception e) {

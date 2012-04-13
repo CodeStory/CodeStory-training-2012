@@ -25,7 +25,7 @@ public class HomePageTest {
 
 	@Test
 	public void should_show_homepage() {
-		when(allCommits.list("dgageot", "sonar")).thenReturn(Arrays.asList( //
+		when(allCommits.list()).thenReturn(Arrays.asList( //
 				new Commit("dgageot", "03/01/2012", "Quatrieme commit", "https://secure.gravatar.com/avatar/f0887bf6175ba40dca795eb37883a8cf"), //
 				new Commit("jeanlaurent", "03/01/2012", "Troisieme commit", "https://secure.gravatar.com/avatar/649d3668d3ba68e75a3441dec9eac26e"), //
 				new Commit("jeanlaurent", "02/01/2012", "Deuxieme commit", "https://secure.gravatar.com/avatar/649d3668d3ba68e75a3441dec9eac26e"), //

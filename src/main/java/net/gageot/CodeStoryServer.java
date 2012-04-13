@@ -4,12 +4,18 @@ import com.google.common.util.concurrent.*;
 import com.google.inject.*;
 import com.sun.jersey.api.container.httpserver.*;
 import com.sun.jersey.api.core.*;
+import com.sun.jersey.core.spi.component.ioc.*;
 import com.sun.jersey.guice.spi.container.*;
 import com.sun.net.httpserver.*;
+import net.gageot.util.proxy.*;
 import org.codehaus.jackson.jaxrs.*;
 
 import java.io.*;
 import java.net.*;
+
+import static com.google.inject.Guice.*;
+import static com.google.inject.util.Modules.*;
+import static java.util.concurrent.TimeUnit.*;
 
 public class CodeStoryServer extends AbstractIdleService {
 	private final int port;
@@ -25,15 +31,12 @@ public class CodeStoryServer extends AbstractIdleService {
 		return port;
 	}
 
-	public static void main(String[] args) {
-		new CodeStoryServer(8080).startAndWait();
-	}
-
 	@Override
 	protected void startUp() throws IOException {
-		DefaultResourceConfig config = new DefaultResourceConfig(CodeStoryResource.class, JacksonJsonProvider.class);
-		Injector injector = Guice.createInjector(modules);
-		GuiceComponentProviderFactory ioc = new GuiceComponentProviderFactory(config, injector);
+		ResourceConfig config = new DefaultResourceConfig(CodeStoryResource.class, JacksonJsonProvider.class);
+
+		Injector injector = createInjector(override(new CodeStoryServerModule()).with(modules));
+		IoCComponentProviderFactory ioc = new GuiceComponentProviderFactory(config, injector);
 
 		URI uri = URI.create("http://localhost:" + port + "/");
 
@@ -44,5 +47,15 @@ public class CodeStoryServer extends AbstractIdleService {
 	@Override
 	protected void shutDown() {
 		httpServer.stop(1);
+	}
+
+	public static void main(String[] args) {
+		new CodeStoryServer(8080).startAndWait();
+	}
+
+	static class CodeStoryServerModule extends AbstractModule {
+		protected void configure() {
+			bind(AllCommits.class).toInstance(CacheProxy.wrap(new AllCommits("dgageot", "NodeGravatar"), 1, MINUTES, 100));
+		}
 	}
 }

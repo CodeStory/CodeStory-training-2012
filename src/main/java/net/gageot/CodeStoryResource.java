@@ -2,13 +2,11 @@ package net.gageot;
 
 import com.google.inject.*;
 import net.gageot.codestory.*;
-import net.gageot.util.proxy.*;
 import org.lesscss.*;
 
 import javax.ws.rs.*;
 import java.io.*;
 import java.util.*;
-import java.util.concurrent.*;
 
 @Path("/")
 @Singleton
@@ -17,7 +15,7 @@ public class CodeStoryResource {
 
 	@Inject
 	public CodeStoryResource(AllCommits allCommits) {
-		this.allCommits = CacheProxy.wrap(allCommits, 1, TimeUnit.MINUTES, 100);
+		this.allCommits = allCommits;
 	}
 
 	@GET
@@ -63,7 +61,7 @@ public class CodeStoryResource {
 	@Path("commits.json")
 	@Produces("application/json;charset=UTF-8")
 	public List<Commit> commits() {
-		return allCommits.list("dgageot", "sonar");
+		return allCommits.list();
 	}
 
 	private static File staticResource(String path) {

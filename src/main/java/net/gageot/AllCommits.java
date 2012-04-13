@@ -3,27 +3,32 @@ package net.gageot;
 import com.google.common.base.*;
 import com.google.inject.*;
 import net.gageot.codestory.Commit;
+import net.gageot.util.dates.*;
+import net.gageot.util.proxy.*;
 import org.eclipse.egit.github.core.*;
 import org.eclipse.egit.github.core.service.*;
-import org.joda.time.*;
-import org.joda.time.format.*;
 
 import java.io.*;
 import java.util.*;
 
 import static com.google.common.collect.FluentIterable.*;
 
-@Singleton
 public class AllCommits {
-	private static final DateTimeZone UTC = DateTimeZone.forID("UTC");
-	private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormat.forPattern("yyyy-MM-dd").withZoneUTC();
+	private final String userName;
+	private final String project;
 
-	public List<Commit> list(String userName, String project) {
-		System.out.println("Retrieve commits");
-		return from(projectCommits(userName, project)).transform(TO_COMMIT).toImmutableList();
+	@Inject
+	public AllCommits(String userName, String project) {
+		this.userName = userName;
+		this.project = project;
 	}
 
-	private List<RepositoryCommit> projectCommits(String userName, String project) {
+	@Cached
+	public List<Commit> list() {
+		return from(projectCommits()).transform(TO_COMMIT).toImmutableList();
+	}
+
+	private List<RepositoryCommit> projectCommits() {
 		try {
 			return new CommitService().getCommits(new RepositoryService().getRepository(userName, project));
 		} catch (IOException e) {
@@ -31,15 +36,11 @@ public class AllCommits {
 		}
 	}
 
-	private static String formatDate(Date date) {
-		return DATE_FORMATTER.print(new DateTime(date, UTC));
-	}
-
 	private static Function<RepositoryCommit, Commit> TO_COMMIT = new Function<RepositoryCommit, Commit>() {
 		@Override
 		public Commit apply(RepositoryCommit commit) {
 			String login = null == commit.getAuthor() ? "Unknown" : commit.getAuthor().getLogin();
-			String date = formatDate(commit.getCommit().getAuthor().getDate());
+			String date = DateFormats.format(commit.getCommit().getAuthor().getDate());
 			String message = commit.getCommit().getMessage();
 			String avatarUrl = null == commit.getAuthor() ? "" : commit.getAuthor().getAvatarUrl();
 
