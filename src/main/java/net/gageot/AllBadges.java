@@ -1,6 +1,5 @@
 package net.gageot;
 
-import com.google.common.io.*;
 import com.google.common.util.concurrent.*;
 import com.google.inject.*;
 import groovy.lang.Binding;
@@ -9,8 +8,7 @@ import net.gageot.codestory.*;
 
 import java.util.*;
 
-import static com.google.common.base.Charsets.*;
-import static com.google.common.io.Resources.*;
+import static com.google.common.collect.ImmutableMap.*;
 
 public class AllBadges {
 	private AllCommits allCommits;
@@ -44,13 +42,14 @@ public class AllBadges {
 	}
 
 	public String getTopCommiterGroovy() {
-		Binding binding = new Binding();
-		binding.setVariable("commits", allCommits.list());
-		GroovyShell shell = new GroovyShell(binding);
+		return (String) groovy("commits.countBy { it.login }.max { it.value }.key");
+	}
 
+	private Object groovy(String script) {
 		try {
-			String script = Resources.toString(getResource("TopCommiter.groovy"), UTF_8);
-			return (String) shell.evaluate(script);
+			GroovyShell shell = new GroovyShell(new Binding(of("commits", allCommits.list())));
+
+			return shell.evaluate(script);
 		} catch (Exception e) {
 			throw new RuntimeException("unable to understand the groovy script", e);
 		}
