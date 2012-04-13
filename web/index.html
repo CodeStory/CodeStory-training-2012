@@ -1,47 +1,50 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<title>CodeStory - HomePage</title>
-	<link rel="stylesheet" type="text/css" href="bootstrap.min.css"/>
-	<link rel="stylesheet" type="text/css" href="style.less"/>
-	<link href='http://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
-	<link href='http://fonts.googleapis.com/css?family=Bad+Script' rel='stylesheet' type='text/css'>
+    <meta charset="utf-8">
+    <title>CodeStory - HomePage</title>
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="style.less"/>
+    <link href='http://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Bad+Script' rel='stylesheet' type='text/css'>
 </head>
 <body>
 <div id="main">
-	<a id="navCommits" href="#">Commits</a>
-	<a id="navBadges" href="#">Badges</a>
-	<a id="navStats" href="#">Stats</a>
-	<a id="navCodeStory" href="#">CodeStory</a>
+    <a id="navCommits" href="#">Commits</a>
+    <a id="navBadges" href="#">Badges</a>
+    <a id="navStats" href="#">Stats</a>
+    <a id="navCodeStory" href="#">CodeStory</a>
 
-	<div id="commits">
-		<script id="commitsTemplate" type="text/x-template">
-			{{#.}}
-			<div class="commit">
-				<img src="{{avatarUrl}}"/>
+    <div id="commits">
+        <script id="commitsTemplate" type="text/x-template">
+            {{#.}}
+            <div class="commit">
+                <img src="{{avatarUrl}}"/>
 
-				<div class="date">{{date}}</div>
-				<p>{{message}}</p>
-			</div>
-			{{/.}}
-		</script>
-	</div>
-	<div id="badges">
-		<div id="best-commiter">
-			jeanlaurent
-		</div>
-	</div>
-	<div id="stats">
-	</div>
+                <div class="date">{{date}}</div>
+                <p>{{message}}</p>
+            </div>
+            {{/.}}
+        </script>
+    </div>
+    <div id="badges">
+        <div id="best-commiter" class="commit">
+            <img src="https://secure.gravatar.com/avatar/649d3668d3ba68e75a3441dec9eac26e"/>
+
+            <div class="date">Best Commiter</div>
+            <p>Awarded on 3/4/2012 for 2 commits.</p>
+        </div>
+    </div>
+    <div id="stats">
+    </div>
 </div>
 </body>
 <script src="mustache.js"></script>
 <script src="jquery.js"></script>
 <script src="bootstrap.min.js"></script>
 <script>
-	$.getJSON('commits.json', function (json) {
-		$("#commits").html(Mustache.to_html($('#commitsTemplate').html(), json));
-	});
+    $.getJSON('commits.json', function (json) {
+        $("#commits").html(Mustache.to_html($('#commitsTemplate').html(), json));
+    });
 </script>
 </html>

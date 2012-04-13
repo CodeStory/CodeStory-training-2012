@@ -18,5 +18,6 @@ Browser.visit("http://localhost:" + port + "/", function (e, browser, status) {
 });
 
 Browser.visit("http://localhost:" + port + "/", function (e, browser, status) {
-    assert.ok(browser.query("#best-commiter:contains('jeanlaurent')"));
+    assert.ok(browser.query("#best-commiter:contains('Awarded on 3/4/2012 for 2 commits.')"));
+    assert.ok(browser.query("#best-commiter:contains('Best Commiter')"));
 });
