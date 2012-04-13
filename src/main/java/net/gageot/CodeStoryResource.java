@@ -1,5 +1,6 @@
 package net.gageot;
 
+import net.gageot.codestory.*;
 import org.lesscss.*;
 
 import javax.ws.rs.*;
