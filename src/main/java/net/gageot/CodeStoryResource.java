@@ -10,11 +10,11 @@ import java.util.*;
 
 @Path("/")
 public class CodeStoryResource {
-	private final CommitService commitService;
+	private final AllCommits allCommits;
 
 	@Inject
-	public CodeStoryResource(CommitService commitService) {
-		this.commitService = commitService;
+	public CodeStoryResource(AllCommits allCommits) {
+		this.allCommits = allCommits;
 	}
 
 	@GET
@@ -60,7 +60,7 @@ public class CodeStoryResource {
 	@Path("commits.json")
 	@Produces("application/json;charset=UTF-8")
 	public List<Commit> commits() {
-		return commitService.listCommits();
+		return allCommits.list();
 	}
 
 	private static File staticResource(String path) {
