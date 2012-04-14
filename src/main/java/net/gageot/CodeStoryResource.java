@@ -1,7 +1,10 @@
 package net.gageot;
 
+import com.google.common.base.*;
 import com.google.inject.*;
-import net.gageot.codestory.*;
+import net.gageot.codestory.Commit;
+import net.gageot.util.dates.*;
+import org.eclipse.egit.github.core.*;
 import org.lesscss.*;
 
 import javax.activation.*;
@@ -9,10 +12,11 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import java.io.*;
 import java.net.*;
-import java.util.*;
+
+import static com.google.common.base.Objects.*;
+import static net.gageot.listmaker.ListMaker.*;
 
 @Path("/")
-@Singleton
 public class CodeStoryResource {
 	@Inject AllCommits allCommits;
 
@@ -24,8 +28,8 @@ public class CodeStoryResource {
 	@GET
 	@Path("commits.json")
 	@Produces("application/json;charset=UTF-8")
-	public List<Commit> commits() {
-		return allCommits.list();
+	public Iterable<Commit> commits() {
+		return with(allCommits.list()).to(TO_COMMIT);
 	}
 
 	@GET
@@ -44,4 +48,24 @@ public class CodeStoryResource {
 		String mimeType = new MimetypesFileTypeMap().getContentType(file);
 		return Response.ok(file, mimeType).build();
 	}
+
+	private static CommitStats EMPTY_STATS = new CommitStats().setAdditions(0).setDeletions(0).setTotal(0);
+	private static User EMPTY_AUTHOR = new User().setAvatarUrl("").setLogin("");
+
+	private static Function<RepositoryCommit, Commit> TO_COMMIT = new Function<RepositoryCommit, Commit>() {
+		@Override
+		public Commit apply(RepositoryCommit commit) {
+			User author = firstNonNull(commit.getAuthor(), EMPTY_AUTHOR);
+			CommitStats stats = firstNonNull(commit.getStats(), EMPTY_STATS);
+
+			String date = DateFormats.format(commit.getCommit().getAuthor().getDate());
+			String message = commit.getCommit().getMessage();
+			String login = author.getLogin();
+			String avatarUrl = author.getAvatarUrl();
+			int additions = stats.getAdditions();
+			int deletions = stats.getDeletions();
+
+			return new Commit(login, date, message, avatarUrl, additions, deletions);
+		}
+	};
 }

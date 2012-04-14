@@ -16,4 +16,8 @@ public final class DateFormats {
 	public static String format(Date date) {
 		return FORMAT.print(new DateTime(date, UTC));
 	}
+
+	public static Date parse(String date) {
+		return FORMAT.parseDateTime(date).toDate();
+	}
 }

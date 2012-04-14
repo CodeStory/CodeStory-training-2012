@@ -11,7 +11,6 @@ import net.gageot.util.proxy.*;
 import org.codehaus.jackson.jaxrs.*;
 
 import java.io.*;
-import java.net.*;
 
 import static com.google.inject.Guice.*;
 import static com.google.inject.util.Modules.*;
@@ -38,9 +37,7 @@ public class CodeStoryServer extends AbstractIdleService {
 		Injector injector = createInjector(override(new CodeStoryServerModule()).with(modules));
 		IoCComponentProviderFactory ioc = new GuiceComponentProviderFactory(config, injector);
 
-		URI uri = URI.create("http://localhost:" + port + "/");
-
-		httpServer = HttpServerFactory.create(uri, config, ioc);
+		httpServer = HttpServerFactory.create("http://localhost:" + port + "/", config, ioc);
 		httpServer.start();
 	}
 

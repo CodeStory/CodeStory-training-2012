@@ -6,7 +6,7 @@ import java.util.*;
 
 public class CodeStoryServerTest {
 	@Test
-	public void server_should_start() {
+	public void should_start_server() {
 		CodeStoryServer server = new CodeStoryServer(randomPort());
 		server.startAndWait();
 		server.stopAndWait();
