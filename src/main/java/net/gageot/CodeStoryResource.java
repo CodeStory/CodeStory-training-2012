@@ -57,23 +57,17 @@ public class CodeStoryResource {
 		return Response.ok(file, mimeType).build();
 	}
 
-	private static CommitStats EMPTY_STATS = new CommitStats().setAdditions(0).setDeletions(0).setTotal(0);
-	private static User EMPTY_AUTHOR = new User().setAvatarUrl("").setLogin("");
-
 	private static Function<RepositoryCommit, Commit> TO_COMMIT = new Function<RepositoryCommit, Commit>() {
 		@Override
 		public Commit apply(RepositoryCommit commit) {
-			User author = firstNonNull(commit.getAuthor(), EMPTY_AUTHOR);
-			CommitStats stats = firstNonNull(commit.getStats(), EMPTY_STATS);
+			User author = firstNonNull(commit.getAuthor(), new User().setAvatarUrl("").setLogin(""));
 
 			String date = DateFormats.format(commit.getCommit().getAuthor().getDate());
 			String message = commit.getCommit().getMessage();
 			String login = author.getLogin();
 			String avatarUrl = author.getAvatarUrl();
-			int additions = stats.getAdditions();
-			int deletions = stats.getDeletions();
 
-			return new Commit(login, date, message, avatarUrl, additions, deletions);
+			return new Commit(login, date, message, avatarUrl);
 		}
 	};
 }
