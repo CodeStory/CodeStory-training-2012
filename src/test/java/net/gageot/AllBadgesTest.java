@@ -19,36 +19,36 @@ public class AllBadgesTest {
 	public void should_find_top_commiter() {
 		given(allCommits.list()).willReturn(asList(commitBy("jeanlaurent"), commitBy("jeanlaurent"), commitBy("dgageot")));
 
-		String name = allBadges.topCommiter();
+		User user = allBadges.topCommiter();
 
-		assertThat(name).isEqualTo("jeanlaurent");
+		assertThat(user.getLogin()).isEqualTo("jeanlaurent");
 	}
 
 	@Test
 	public void should_find_most_verbose_commiter() {
 		given(allCommits.list()).willReturn(asList(commitBy("jeanlaurent", "SHORT"), commitBy("dgageot", "VERY VERY LONG")));
 
-		String name = allBadges.mostVerboseCommitter();
+		User user = allBadges.mostVerboseCommitter();
 
-		assertThat(name).isEqualTo("dgageot");
+		assertThat(user.getLogin()).isEqualTo("dgageot");
 	}
 
 	@Test
 	public void should_find_fatty_commiter() {
 		given(allCommits.list()).willReturn(asList(commitBy("jeanlaurent", 1000, 0), commitBy("dgageot", 10, 5), commitBy("dgageot", 0, 5)));
 
-		String name = allBadges.fattyCommitter();
+		User user = allBadges.fattyCommitter();
 
-		assertThat(name).isEqualTo("jeanlaurent");
+		assertThat(user.getLogin()).isEqualTo("jeanlaurent");
 	}
 
 	@Test
 	public void should_find_slimmy_commiter() {
 		given(allCommits.list()).willReturn(asList(commitBy("jeanlaurent", 1000, 0), commitBy("dgageot", 10, 5), commitBy("dgageot", 0, 5)));
 
-		String name = allBadges.slimmyCommitter();
+		User user = allBadges.slimmyCommitter();
 
-		assertThat(name).isEqualTo("dgageot");
+		assertThat(user.getLogin()).isEqualTo("dgageot");
 	}
 
 	static RepositoryCommit commitBy(String commiter) {
