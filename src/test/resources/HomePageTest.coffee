@@ -1,35 +1,43 @@
-# Needs Mocha : http://visionmedia.github.com/mocha/
+# Needs
+# Mocha : http://visionmedia.github.com/mocha/
 # Expect.js : https://github.com/LearnBoost/expect.js
 # Coffee-Script : http://coffeescript.org/
-# Run with mocha --ui qunit --compilers coffee:coffee-script --growl test.coffee
-Browser = require("zombie")
+# Run with mocha -R spec --compilers coffee:coffee-script test.coffee
+#
+zombie = require("zombie")
 expect = require("expect.js")
 
-port = process.argv[2]
-home = "http://localhost:" + port + "/"
+home = "http://localhost:" + process.env.PORT + "/"
 
-suite('HomePage')
+browser = new zombie.Browser()
 
-test("Checking Commits", ->
-  Browser.visit(home, (e, browser, status) ->
-    expect(browser.text("title")).to.be("CodeStory - HomePage")
+describe('When displaying HomePage', ->
+	it('should have correct title', (done) ->
+		browser.visit(home, ->
+			expect(browser.text("title")).to.be('CodeStory - HomePage')
+			done()
+		)
+	)
 
-    expect(browser.query("#commits :nth-child(1):contains('Quatrieme commit')")).to.be.ok()
-    expect(browser.query("#commits :nth-child(2):contains('Troisieme commit')")).to.be.ok()
-    expect(browser.query("#commits :nth-child(3):contains('Deuxieme commit')")).to.be.ok()
-    expect(browser.query("#commits :nth-child(4):contains('Premier commit')")).to.be.ok()
+	it('should show commits', (done) ->
+		browser.visit(home, ->
+			expect(browser.query("#commits :nth-child(1):contains('Quatrieme commit')")).to.be.ok()
+			expect(browser.query("#commits :nth-child(2):contains('Troisieme commit')")).to.be.ok()
+			expect(browser.query("#commits :nth-child(3):contains('Deuxieme commit')")).to.be.ok()
+			expect(browser.query("#commits :nth-child(4):contains('Premier commit')")).to.be.ok()
 
-    expect(browser.query("#commits :nth-child(1):contains('03/01/2012')")).to.be.ok()
-    expect(browser.query("#commits :nth-child(2):contains('03/01/2012')")).to.be.ok()
-    expect(browser.query("#commits :nth-child(3):contains('02/01/2012')")).to.be.ok()
-    expect(browser.query("#commits :nth-child(4):contains('01/01/2012')")).to.be.ok()
-  )
-)
+			expect(browser.query("#commits :nth-child(1):contains('2012-01-03')")).to.be.ok()
+			expect(browser.query("#commits :nth-child(2):contains('2012-01-03')")).to.be.ok()
+			expect(browser.query("#commits :nth-child(3):contains('2012-01-02')")).to.be.ok()
+			expect(browser.query("#commits :nth-child(4):contains('2012-01-01')")).to.be.ok()
+			done()
+		)
+	)
 
-test("Checking Badges", ->
-  Browser.visit(home, (e, browser, status) ->
-    expect(browser.query("#best-commiter:contains('Awarded on 3/4/2012 for 2 commits.')")).to.be.ok()
-    expect(browser.query("#best-commiter:contains('Best Commiter')")).to.be.ok()
-    expect(browser.query("#best-commiter")).to.be.ok()
-  )
+	it('should show badges', (done) ->
+		browser.visit(home, ->
+			expect(browser.query("#best-commiter:contains('Top Commiter')")).to.be.ok()
+			done()
+		)
+	)
 )
