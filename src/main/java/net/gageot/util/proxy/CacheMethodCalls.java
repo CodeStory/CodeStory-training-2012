@@ -40,6 +40,7 @@ public class CacheMethodCalls implements MethodInterceptor {
 				});
 	}
 
+	@Override
 	public Object invoke(MethodInvocation invocation) {
 		return cache.getUnchecked(new Invocation(invocation, invocation.getMethod(), invocation.getArguments()));
 	}

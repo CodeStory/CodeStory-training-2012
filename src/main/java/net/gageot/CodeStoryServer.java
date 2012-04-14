@@ -52,6 +52,7 @@ public class CodeStoryServer extends AbstractIdleService {
 	}
 
 	static class CodeStoryServerModule extends AbstractModule {
+		@Override
 		protected void configure() {
 			bindConstant().annotatedWith(named("username")).to("dgageot");
 			bindConstant().annotatedWith(named("project")).to("sonar");
