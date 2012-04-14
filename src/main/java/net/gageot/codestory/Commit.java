@@ -8,4 +8,6 @@ public class Commit {
 	private final String date;
 	private final String message;
 	private final String avatarUrl;
+	private final int additions;
+	private final int deletions;
 }

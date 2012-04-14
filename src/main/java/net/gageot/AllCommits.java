@@ -41,8 +41,10 @@ public class AllCommits {
 			String date = DateFormats.format(commit.getCommit().getAuthor().getDate());
 			String message = commit.getCommit().getMessage();
 			String avatarUrl = null == commit.getAuthor() ? "" : commit.getAuthor().getAvatarUrl();
+			int additions = null == commit.getStats() ? 0 : commit.getStats().getAdditions();
+			int deletions = null == commit.getStats() ? 0 : commit.getStats().getDeletions();
 
-			return new Commit(login, date, message, avatarUrl);
+			return new Commit(login, date, message, avatarUrl, additions, deletions);
 		}
 	};
 }
