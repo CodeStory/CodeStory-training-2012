@@ -28,14 +28,19 @@
 		</script>
 	</div>
 	<div id="badges">
-		<div id="best-commiter" class="commit">
-			<img class="csbadge" src="topCommiter.png"/>
+		Loading badges...
+		<script id="badgesTemplate" type="text/x-template">
+			<div id="best-commiter" class="commit">
+				<img class="csbadge" src="topCommiter.png"/>
 
-			<p>Top Commiter</p>
-			<img class="portrait" src="https://secure.gravatar.com/avatar/649d3668d3ba68e75a3441dec9eac26e"/>
+				<p>Top Commiter</p>
+				{{#badges}}
+				<img class="portrait" src="{{avatarUrl}}"/>
 
-			<div class="date">2012-03-03</div>
-		</div>
+				<div class="date">{{login}}</div>
+				{{/badges}}
+			</div>
+		</script>
 	</div>
 	<div id="stats">
 	</div>
@@ -46,6 +51,9 @@
 <script>
 	$.getJSON('commits.json', function (json) {
 		$("#commits").html(Hogan.compile($('#commitsTemplate').html()).render({commits:json}));
+	});
+	$.getJSON('topCommiter.json', function (json) {
+		$("#badges").html(Hogan.compile($('#badgesTemplate').html()).render({badges:json}));
 	});
 </script>
 </html>

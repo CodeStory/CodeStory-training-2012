@@ -19,6 +19,7 @@ import static net.gageot.listmaker.ListMaker.*;
 @Path("/")
 public class CodeStoryResource {
 	@Inject AllCommits allCommits;
+	@Inject AllBadges allBadges;
 
 	@GET
 	public Response index() {
@@ -30,6 +31,13 @@ public class CodeStoryResource {
 	@Produces("application/json;charset=UTF-8")
 	public Iterable<Commit> commits() {
 		return with(allCommits.list()).to(TO_COMMIT);
+	}
+
+	@GET
+	@Path("topCommiter.json")
+	@Produces("application/json;charset=UTF-8")
+	public User topCommiter() {
+		return allBadges.topCommiter();
 	}
 
 	@GET
