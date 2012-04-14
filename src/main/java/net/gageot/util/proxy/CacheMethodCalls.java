@@ -16,7 +16,6 @@ public class CacheMethodCalls implements MethodInterceptor {
 
 	public CacheMethodCalls() {
 		cache = CacheBuilder.newBuilder() //
-				.maximumSize(100) //
 				.refreshAfterWrite(1, MINUTES) //
 				.build(new CacheLoader<Invocation, Object>() {
 					@Override
