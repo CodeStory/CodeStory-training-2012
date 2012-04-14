@@ -1,6 +1,8 @@
 package net.gageot;
 
 import com.google.common.base.*;
+import com.google.inject.*;
+import com.google.inject.name.*;
 import net.gageot.util.proxy.*;
 import org.eclipse.egit.github.core.*;
 import org.eclipse.egit.github.core.service.*;
@@ -12,7 +14,8 @@ public class AllCommits {
 	private final String userName;
 	private final String project;
 
-	public AllCommits(String userName, String project) {
+	@Inject
+	public AllCommits(@Named("username") String userName, @Named("project") String project) {
 		this.userName = userName;
 		this.project = project;
 	}

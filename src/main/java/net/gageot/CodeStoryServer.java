@@ -13,8 +13,9 @@ import org.codehaus.jackson.jaxrs.*;
 import java.io.*;
 
 import static com.google.inject.Guice.*;
+import static com.google.inject.matcher.Matchers.*;
+import static com.google.inject.name.Names.*;
 import static com.google.inject.util.Modules.*;
-import static java.util.concurrent.TimeUnit.*;
 
 public class CodeStoryServer extends AbstractIdleService {
 	private final int port;
@@ -52,7 +53,9 @@ public class CodeStoryServer extends AbstractIdleService {
 
 	static class CodeStoryServerModule extends AbstractModule {
 		protected void configure() {
-			bind(AllCommits.class).toInstance(CacheProxy.wrap(new AllCommits("dgageot", "NodeGravatar"), 1, MINUTES, 100));
+			bindConstant().annotatedWith(named("username")).to("dgageot");
+			bindConstant().annotatedWith(named("project")).to("sonar");
+			bindInterceptor(any(), annotatedWith(Cached.class), new CacheMethodCalls());
 		}
 	}
 }
