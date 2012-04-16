@@ -55,7 +55,7 @@
 	$.getJSON('commits.json', function (json) {
 		$("#commits").html(Hogan.compile($('#commitsTemplate').html()).render({commits:json}));
 	});
-	$.getJSON('topCommiter.json', function (json) {
+	$.getJSON('badges.json', function (json) {
 		$("#badges").html(Hogan.compile($('#badgesTemplate').html()).render({badges:json}));
 	});
 </script>

@@ -1,7 +1,9 @@
 package net.gageot;
 
 import com.google.common.base.*;
+import com.google.common.collect.*;
 import com.google.inject.*;
+import net.gageot.codestory.*;
 import net.gageot.codestory.Commit;
 import net.gageot.util.dates.*;
 import org.eclipse.egit.github.core.*;
@@ -12,6 +14,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import java.io.*;
 import java.net.*;
+import java.util.*;
 
 import static com.google.common.base.Objects.*;
 import static com.google.common.collect.FluentIterable.*;
@@ -38,6 +41,13 @@ public class CodeStoryResource {
 	@Produces("application/json;charset=UTF-8")
 	public User topCommiter() {
 		return allBadges.topCommiter();
+	}
+
+	@GET
+	@Path("badges.json")
+	@Produces("application/json;charset=UTF-8")
+	public List<Badge> badges() {
+		return Lists.newArrayList(toBadge(allBadges.topCommiter(), "TopCommiter"), toBadge(allBadges.mostVerboseCommitter(), "verboseCommiter"));
 	}
 
 	@GET
@@ -70,4 +80,10 @@ public class CodeStoryResource {
 			return new Commit(login, date, message, avatarUrl);
 		}
 	};
+
+	private Badge toBadge(User user, String badgeName) {
+		String date = DateFormats.format(new Date());
+		return new Badge(date, badgeName, user.getLogin(), user.getAvatarUrl());
+	}
+
 }
