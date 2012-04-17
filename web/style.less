@@ -1,6 +1,7 @@
 @beige: #ECE8CA;
 @marron: #753a2a;
 @bleu: #00008b;
+@darkground: #02282e;
 
 .centered(@width: 0){
 	width: @width;
@@ -33,6 +34,16 @@ body {
 	#header {
 		width: 1020px;
 		height: 130px;
+
+		h2 {
+			margin-top: -250px;
+			margin-right: 30px;
+			float: right;
+			background-color: @darkground;
+			color: @beige;
+			padding: 50px;
+			border-radius: 5px;
+		}
 	}
 
 	#commits {
