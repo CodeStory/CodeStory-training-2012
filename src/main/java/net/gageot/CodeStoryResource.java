@@ -50,8 +50,7 @@ public class CodeStoryResource {
 	public List<Badge> badges() {
 		return asList( //
 				toBadge(allBadges.topCommiter(), "topCommiter", "Top Commiter"), //
-				toBadge(allBadges.mostVerboseCommitter(), "verboseCommiter", "Verbose Committer") //
-		);
+				toBadge(allBadges.mostVerboseCommitter(), "verboseCommiter", "Verbose Commiter"));
 	}
 
 	@GET
