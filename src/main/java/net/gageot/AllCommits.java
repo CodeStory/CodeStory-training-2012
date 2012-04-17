@@ -5,6 +5,7 @@ import com.google.inject.*;
 import com.google.inject.name.*;
 import net.gageot.util.proxy.*;
 import org.eclipse.egit.github.core.*;
+import org.eclipse.egit.github.core.client.*;
 import org.eclipse.egit.github.core.service.*;
 
 import java.io.*;
@@ -23,7 +24,8 @@ public class AllCommits {
 	@Cached
 	public List<RepositoryCommit> list() {
 		try {
-			return new CommitService().getCommits(new RepositoryService().getRepository(userName, project));
+			GitHubClient githubClient = new GitHubClient("github", -1, "http");
+			return new CommitService(githubClient).getCommits(new RepositoryService(githubClient).getRepository(userName, project));
 		} catch (IOException e) {
 			throw Throwables.propagate(e);
 		}
