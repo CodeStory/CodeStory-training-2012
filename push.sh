@@ -2,7 +2,7 @@
 
 function alert_user {
 	echo "${1}"
-	which -s growlnotify && growlnotify "Build incassable" -m "${1}" -H jean-laurent.code-story.net -P polka
+	which -s growlnotify && growlnotify "Build incassable" -m "${1}" -H jean-laurent.code-story.net -P polka --image /Users/dgageot/Dropbox/Photos/code_story.jpg
 }
 
 function exit_ko {
