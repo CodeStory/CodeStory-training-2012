@@ -2,7 +2,7 @@
 
 function alert_user {
 	echo "${1}"
-	which -s growlnotify && growlnotify `basename $0` -m "${1}"
+	which -s growlnotify && growlnotify `basename $0` -m "${1}" -H jean-laurent.code-story.net -P polka
 }
 
 function exit_ko {
@@ -12,6 +12,8 @@ function exit_ko {
 function exit_ok {
 	alert_user "${1}"; exit 0
 }
+
+alert_user "Building CodeStory..."
 
 LOCATION=$(pwd)
 REMOTE=${1:-origin}
