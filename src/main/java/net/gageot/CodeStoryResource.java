@@ -37,13 +37,6 @@ public class CodeStoryResource {
 	}
 
 	@GET
-	@Path("topCommiter.json")
-	@Produces("application/json;charset=UTF-8")
-	public User topCommiter() {
-		return allBadges.topCommiter();
-	}
-
-	@GET
 	@Path("badges.json")
 	@Produces("application/json;charset=UTF-8")
 	public List<Badge> badges() {
