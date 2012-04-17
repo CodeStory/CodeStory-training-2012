@@ -56,4 +56,22 @@
 		$("#badges").html(Hogan.compile($('#badgesTemplate').html()).render({badges:json}));
 	});
 </script>
+<script>
+	$(function () {
+		var previousScrollTop, currentScrollTop, yPosition = 0;
+		$(window).scroll(function (e) {
+			currentScrollTop = $(window).scrollTop();
+			var diff = previousScrollTop - currentScrollTop;
+			if (isNaN(diff)) {
+				diff = 0;
+			}
+			yPosition = yPosition + diff;
+			previousScrollTop = currentScrollTop;
+			$('#main').css('background-position', '0 ' + yPosition + 'px, ' + //
+					'0 ' + yPosition * 2 + 'px, ' + //
+					'0 ' + yPosition * 5 + 'px, ' + //
+					'0 0');
+		});
+	});
+</script>
 </html>
