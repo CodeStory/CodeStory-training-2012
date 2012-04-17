@@ -4,23 +4,21 @@
 # Coffee-Script : http://coffeescript.org/
 # Run with mocha -R spec --compilers coffee:coffee-script test.coffee
 #
-zombie = require("zombie")
+Browser = require("zombie")
 expect = require("expect.js")
 
 home = "http://localhost:" + process.env.PORT + "/"
 
-browser = new zombie.Browser()
-
 describe('When displaying HomePage', ->
 	it('should have correct title', (done) ->
-		browser.visit(home, ->
+		Browser.visit(home, (e, browser) ->
 			expect(browser.text("title")).to.be('CodeStory - HomePage')
 			done()
 		)
 	)
 
 	it('should show commits', (done) ->
-		browser.visit(home, ->
+		Browser.visit(home, (e, browser) ->
 			expect(browser.query("#commits :nth-child(1):contains('Quatrieme commit')")).to.be.ok()
 			expect(browser.query("#commits :nth-child(2):contains('Troisieme commit')")).to.be.ok()
 			expect(browser.query("#commits :nth-child(3):contains('Deuxieme commit')")).to.be.ok()
@@ -35,9 +33,8 @@ describe('When displaying HomePage', ->
 	)
 
 	it('should show badges', (done) ->
-		browser.visit(home, ->
-			expect(browser.query("#best-commiter:contains('Top Commiter')")).to.be.ok()
-			expect(browser.query("#best-commiter:contains('jeanlaurent')")).to.be.ok()
+		Browser.visit(home, (e, browser) ->
+			expect(browser.query("#badges .badge:contains('Top Commiter')")).to.be.ok()
 			done()
 		)
 	)
