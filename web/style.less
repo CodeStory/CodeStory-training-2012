@@ -12,9 +12,9 @@
 }
 
 .photo {
-	width: 40px;
-	height: 50px;
-	border-radius: 4px;
+	width: 80px;
+	height: 80px;
+	border-radius: 5px;
 	border: 3px solid white;
 }
 
@@ -26,9 +26,9 @@ body {
 }
 
 #main {
-	background: url('code_story.jpg') no-repeat;
 	.centered(1020px);
 	min-height: 1020px;
+	background: black url('background-repeat.png') repeat-y;
 
 	#header {
 		width: 1020px;
@@ -38,11 +38,10 @@ body {
 	#commits {
 		width: 700px;
 		float: left;
-		margin-top: 94px;
-		background-color: black;
+		margin-top: 150px;
 
 		.commit {
-			height: 56px;
+			height: 100px;
 			width: 320px;
 			float: left;
 
@@ -53,18 +52,17 @@ body {
 
 			.description {
 				color: white;
+				width: 200px;
 			}
 
 			.date {
 				color: grey;
-				font-size: smaller;
 			}
 
 			p {
 				margin-top: 3px;
 				margin-bottom: 0;
 				font-style: normal;
-				font-size: small;
 			}
 		}
 	}
@@ -75,7 +73,6 @@ body {
 
 		.badge {
 			height: 101px;
-			background: black;
 
 			p {
 				color: white;

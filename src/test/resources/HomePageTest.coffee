@@ -34,7 +34,7 @@ describe('When displaying HomePage', ->
 
 	it('should show badges', (done) ->
 		Browser.visit(home, (e, browser) ->
-			expect(browser.query("#badges .badge:contains('Top Commiter')")).to.be.ok()
+			expect(browser.query("#badges .badge:contains('topCommiter')")).to.be.ok()
 			done()
 		)
 	)

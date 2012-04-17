@@ -1,7 +1,6 @@
 package net.gageot;
 
 import com.google.common.base.*;
-import com.google.common.collect.*;
 import com.google.inject.*;
 import net.gageot.codestory.*;
 import net.gageot.codestory.Commit;
@@ -18,6 +17,7 @@ import java.util.*;
 
 import static com.google.common.base.Objects.*;
 import static com.google.common.collect.FluentIterable.*;
+import static java.util.Arrays.*;
 
 @Path("/")
 public class CodeStoryResource {
@@ -40,7 +40,7 @@ public class CodeStoryResource {
 	@Path("badges.json")
 	@Produces("application/json;charset=UTF-8")
 	public List<Badge> badges() {
-		return Lists.newArrayList(toBadge(allBadges.topCommiter(), "TopCommiter"), toBadge(allBadges.mostVerboseCommitter(), "verboseCommiter"));
+		return asList(toBadge(allBadges.topCommiter(), "topCommiter"), toBadge(allBadges.mostVerboseCommitter(), "verboseCommiter"));
 	}
 
 	@GET
