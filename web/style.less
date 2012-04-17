@@ -1,7 +1,7 @@
 @beige: #ECE8CA;
 @marron: #753a2a;
 @bleu: #00008b;
-@darkground: rgba(59, 91, 100, 0.95);
+@darkground: rgba(59, 91, 100, .4);
 
 .centered(@width: 0){
 	width: @width;
@@ -19,33 +19,42 @@ body {
 	font-family: 'Oxygen', sans-serif;
 	margin: 0;
 	padding: 0;
-	background-image: url('background-close-stars.png'), url('background-middle-stars.png'), url('background-far-stars.png'), url('background.png');
+	background-image: url('background-close-stars.png'), url('background-middle-stars.png'), url('background-far-stars.png'), url('background-repeat.png');
 	background-repeat: repeat, repeat, repeat, repeat;
+}
+
+#header {
+	position: fixed;
+	height: 200px;
+	left: 0;
+	top: 0;
+	background-color: rgba(0, 0, 0, .4);
+	width: 100%;
+}
+
+h2 {
+	position: fixed;
+	right: 40px;
+	top: 0px;
+	width: 320px;
+	height: 79px;
+	line-height: 60px;
+	margin-top: 0px;
+	color: @beige;
+	text-align: center;
+	background: url('project-background.png') no-repeat center;
+	z-index: 9999;
 }
 
 #main {
 	.centered(1020px);
 	min-height: 1020px;
-
-	#header {
-		height: 280px;
-
-		h2 {
-			width: 320px;
-			height: 79px;
-			line-height: 60px;
-			margin-top: 0px;
-			float: right;
-			color: @beige;
-			text-align: center;
-			background: url('project-background.png') no-repeat center;
-		}
-	}
+	padding-top: 250px;
 
 	#commits {
 		width: 700px;
 		float: left;
-		margin-top: 20px;
+		background: url('ligne.png') repeat-y center 15px;
 
 		.commit {
 			height: 100px;
@@ -73,10 +82,11 @@ body {
 	}
 
 	#badges {
-		width: 295px;
-		float: left;
+		position: fixed;
+		right: 50px;
+		top: 150px;
 		background-color: @darkground;
-		padding: 20px 0 0 25px;
+		padding: 20px 0 0 20px;
 		min-height: 500px;
 		border-radius: 8px;
 
