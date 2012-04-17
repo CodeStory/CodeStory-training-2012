@@ -2,7 +2,7 @@
 
 function alert_user {
 	echo "${1}"
-	which -s growlnotify && growlnotify "Build incassable" -m "${1}" -H jean-laurent.code-story.net -P polka --image /Users/dgageot/Dropbox/Photos/code_story.jpg -d CodeStory
+	which -s growlnotify && growlnotify "Build incassable" -m "${1}" -H jean-laurent.code-story.net -P polka --image /Users/dgageot/Dropbox/Photos/code_story.jpg -d CodeStory ${2}
 }
 
 function exit_ko {
@@ -13,7 +13,7 @@ function exit_ok {
 	alert_user "${1}"; exit 0
 }
 
-alert_user "Building CodeStory..."
+alert_user "Building CodeStory..." "-s"
 
 LOCATION=$(pwd)
 REMOTE=${1:-origin}
