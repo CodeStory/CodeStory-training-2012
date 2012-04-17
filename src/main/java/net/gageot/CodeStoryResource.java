@@ -40,7 +40,7 @@ public class CodeStoryResource {
 	@Path("badges.json")
 	@Produces("application/json;charset=UTF-8")
 	public List<Badge> badges() {
-		return asList(toBadge(allBadges.topCommiter(), "topCommiter"), toBadge(allBadges.mostVerboseCommitter(), "verboseCommiter"));
+		return asList(toBadge(allBadges.topCommiter(), "topCommiter", "Top Commiter"), toBadge(allBadges.mostVerboseCommitter(), "verboseCommiter", "Verbose Committer"));
 	}
 
 	@GET
@@ -74,9 +74,8 @@ public class CodeStoryResource {
 		}
 	};
 
-	private Badge toBadge(User user, String badgeName) {
+	private Badge toBadge(User user, String filename, String text) {
 		String date = DateFormats.format(new Date());
-		return new Badge(date, badgeName, user.getLogin(), user.getAvatarUrl());
+		return new Badge(date, filename, text, user.getAvatarUrl());
 	}
-
 }
