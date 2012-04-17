@@ -5,14 +5,11 @@
 	<title>CodeStory - HomePage</title>
 	<link rel="stylesheet" type="text/css" href="style.less"/>
 	<link href='http://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
-	<link href='http://fonts.googleapis.com/css?family=Bad+Script' rel='stylesheet' type='text/css'>
 </head>
 <body>
 <div id="main">
-	<a id="navCommits" href="#">Commits</a>
-	<a id="navBadges" href="#">Badges</a>
-	<a id="navStats" href="#">Stats</a>
-	<a id="navCodeStory" href="#">CodeStory</a>
+	<div id="header">
+	</div>
 
 	<div id="commits">
 		Loading commits...
@@ -21,8 +18,10 @@
 			<div class="commit">
 				<img class="portrait" src="{{avatarUrl}}"/>
 
-				<div class="date">{{date}}</div>
-				<p>{{message}}</p>
+				<div class="description">
+					<div class="date">{{date}}</div>
+					<p>{{message}}</p>
+				</div>
 			</div>
 			{{/commits}}
 		</script>
@@ -30,19 +29,23 @@
 	<div id="badges">
 		Loading badges...
 		<script id="badgesTemplate" type="text/x-template">
-			<div id="best-commiter" class="commit">
-				<img class="csbadge" src="topCommiter.png"/>
-
+			{{#badges}}
+			<div class="badge">
 				<p>Top Commiter</p>
-				{{#badges}}
 				<img class="portrait" src="{{avatarUrl}}"/>
 
-				<div class="date">{{login}}</div>
-				{{/badges}}
+				<div class="separator"></div>
+				<img class="icon" src="topCommiter.png"/>
 			</div>
+			<div class="badge">
+				<p>Top Commiter</p>
+				<img class="portrait" src="{{avatarUrl}}"/>
+
+				<div class="separator"></div>
+				<img class="icon" src="topCommiter.png"/>
+			</div>
+			{{/badges}}
 		</script>
-	</div>
-	<div id="stats">
 	</div>
 </div>
 </body>

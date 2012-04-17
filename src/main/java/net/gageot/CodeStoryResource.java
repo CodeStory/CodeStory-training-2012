@@ -14,7 +14,7 @@ import java.io.*;
 import java.net.*;
 
 import static com.google.common.base.Objects.*;
-import static net.gageot.listmaker.ListMaker.*;
+import static com.google.common.collect.FluentIterable.*;
 
 @Path("/")
 public class CodeStoryResource {
@@ -30,7 +30,7 @@ public class CodeStoryResource {
 	@Path("commits.json")
 	@Produces("application/json;charset=UTF-8")
 	public Iterable<Commit> commits() {
-		return with(allCommits.list()).to(TO_COMMIT);
+		return from(allCommits.list()).transform(TO_COMMIT);
 	}
 
 	@GET

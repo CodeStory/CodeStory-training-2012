@@ -28,11 +28,11 @@ public class CacheMethodCalls implements MethodInterceptor {
 					}
 
 					@Override
-					public ListenableFuture<Object> reload(final Invocation invocation, Object oldValue) {
+					public ListenableFuture<Object> reload(final Invocation key, Object oldValue) throws Exception {
 						return ListenableFutureTask.create(new Callable<Object>() {
 							@Override
-							public Object call() {
-								return load(invocation);
+							public Object call() throws Exception {
+								return load(key);
 							}
 						});
 					}
