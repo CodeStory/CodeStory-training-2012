@@ -40,7 +40,7 @@
 				<img class="portrait" src="{{avatarUrl}}"/>
 
 				<div class="separator"></div>
-				<img class="icon" src="{{file}}.png"/>
+				<img class="icon" src="badges/{{file}}.png"/>
 			</div>
 			{{/badges}}
 		</script>
@@ -50,14 +50,12 @@
 <script src="hogan.js"></script>
 <script src="jquery.js"></script>
 <script>
-	$.getJSON('commits.json', function (json) {
+	$.getJSON('commits', function (json) {
 		$("#commits").html(Hogan.compile($('#commitsTemplate').html()).render({commits:json}));
 	});
-	$.getJSON('badges.json', function (json) {
+	$.getJSON('badges', function (json) {
 		$("#badges").html(Hogan.compile($('#badgesTemplate').html()).render({badges:json}));
 	});
-</script>
-<script>
 	$(function () {
 		var previousScrollTop, currentScrollTop, yPosition = 0;
 		$(window).scroll(function (e) {

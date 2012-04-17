@@ -1,5 +1,6 @@
 package net.gageot;
 
+import net.gageot.codestory.*;
 import org.eclipse.egit.github.core.*;
 import org.junit.*;
 
@@ -9,7 +10,14 @@ import java.util.*;
 import static org.fest.assertions.Assertions.*;
 
 public class AllCommitsTest {
-	static List<RepositoryCommit> commits = new AllCommits("jlm", "NodeGravatar").list();
+	static List<RepositoryCommit> commits;
+
+	@BeforeClass
+	public static void readCommits() {
+		AllCommits allCommits = new AllCommits();
+		allCommits.project = new Project("jlm", "NodeGravatar");
+		commits = allCommits.list();
+	}
 
 	@Test
 	public void should_count_commits() {

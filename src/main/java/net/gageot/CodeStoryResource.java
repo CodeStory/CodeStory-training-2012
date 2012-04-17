@@ -21,6 +21,7 @@ import static java.util.Arrays.*;
 
 @Path("/")
 public class CodeStoryResource {
+	@Inject Project project;
 	@Inject AllCommits allCommits;
 	@Inject AllBadges allBadges;
 
@@ -30,17 +31,27 @@ public class CodeStoryResource {
 	}
 
 	@GET
-	@Path("commits.json")
+	@Path("project")
+	@Produces("application/json;charset=UTF-8")
+	public Project project() {
+		return project;
+	}
+
+	@GET
+	@Path("commits")
 	@Produces("application/json;charset=UTF-8")
 	public Iterable<Commit> commits() {
 		return from(allCommits.list()).transform(TO_COMMIT);
 	}
 
 	@GET
-	@Path("badges.json")
+	@Path("badges")
 	@Produces("application/json;charset=UTF-8")
 	public List<Badge> badges() {
-		return asList(toBadge(allBadges.topCommiter(), "topCommiter", "Top Commiter"), toBadge(allBadges.mostVerboseCommitter(), "verboseCommiter", "Verbose Committer"));
+		return asList( //
+				toBadge(allBadges.topCommiter(), "topCommiter", "Top Commiter"), //
+				toBadge(allBadges.mostVerboseCommitter(), "verboseCommiter", "Verbose Committer") //
+		);
 	}
 
 	@GET
@@ -74,8 +85,9 @@ public class CodeStoryResource {
 		}
 	};
 
-	private Badge toBadge(User user, String filename, String text) {
+	private static Badge toBadge(User user, String filename, String text) {
 		String date = DateFormats.format(new Date());
+
 		return new Badge(date, filename, text, user.getAvatarUrl());
 	}
 }

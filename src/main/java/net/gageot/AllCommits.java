@@ -2,7 +2,7 @@ package net.gageot;
 
 import com.google.common.base.*;
 import com.google.inject.*;
-import com.google.inject.name.*;
+import net.gageot.codestory.*;
 import net.gageot.util.proxy.*;
 import org.eclipse.egit.github.core.*;
 import org.eclipse.egit.github.core.client.*;
@@ -12,20 +12,14 @@ import java.io.*;
 import java.util.*;
 
 public class AllCommits {
-	private final String userName;
-	private final String project;
-
-	@Inject
-	public AllCommits(@Named("username") String userName, @Named("project") String project) {
-		this.userName = userName;
-		this.project = project;
-	}
+	@Inject Project project;
 
 	@Cached
 	public List<RepositoryCommit> list() {
 		try {
-			GitHubClient githubClient = new GitHubClient("github", -1, "http");
-			return new CommitService(githubClient).getCommits(new RepositoryService(githubClient).getRepository(userName, project));
+			//GitHubClient githubClient = new GitHubClient("github", -1, "http");
+			GitHubClient githubClient = new GitHubClient();
+			return new CommitService(githubClient).getCommits(new RepositoryService(githubClient).getRepository(project.getUserName(), project.getProject()));
 		} catch (IOException e) {
 			throw Throwables.propagate(e);
 		}
