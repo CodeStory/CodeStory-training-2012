@@ -2,7 +2,7 @@
 
 function alert_user {
 	echo "${1}"
-	which -s growlnotify && growlnotify `basename $0` -m "Code-Story" -H jean-laurent.code-story.net -P polka
+	which -s growlnotify && growlnotify "Build incassable" -m "${1}" -H jean-laurent.code-story.net -P polka
 }
 
 function exit_ko {
