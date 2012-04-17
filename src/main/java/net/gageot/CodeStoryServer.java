@@ -55,7 +55,7 @@ public class CodeStoryServer extends AbstractIdleService {
 		@Override
 		protected void configure() {
 			bindConstant().annotatedWith(named("username")).to("dgageot");
-			bindConstant().annotatedWith(named("project")).to("NodeGravatar");
+			bindConstant().annotatedWith(named("project")).to("CodeStory");
 			bindInterceptor(any(), annotatedWith(Cached.class), new CacheMethodCalls());
 		}
 	}

@@ -11,7 +11,7 @@ public class AllBadges {
 	@Inject AllCommits allCommits;
 
 	public User topCommiter() {
-		return (User) groovy("commits.groupBy { it.author.login }.max { it.value.size }.value[0].author");
+		return (User) groovy("commits.findAll( { it.author != null } ).groupBy { it.author.login }.max { it.value.size }.value[0].author");
 	}
 
 	public User mostVerboseCommitter() {
@@ -19,11 +19,11 @@ public class AllBadges {
 	}
 
 	public User fattyCommitter() {
-		return (User) groovy("commits.max { it.stats.additions - it.stats.deletions }.author");
+		return (User) groovy("commits.findAll( { it.stats != null } ).max { it.stats.additions - it.stats.deletions }.author");
 	}
 
 	public User slimmyCommitter() {
-		return (User) groovy("commits.max { it.stats.deletions - it.stats.additions }.author");
+		return (User) groovy("commits.findAll( { it.stats != null } ).max { it.stats.deletions - it.stats.additions }.author");
 	}
 
 	private Object groovy(String script) {
