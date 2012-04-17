@@ -52,4 +52,4 @@ fi
 
 # Update working directory
 cd ${LOCATION} && git fetch ${REMOTE}
-exit_ok "Yet another successful push!"
+exit_ok "Yet another successful build!"
